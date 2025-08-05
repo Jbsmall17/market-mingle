@@ -1,11 +1,14 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 export default function Page() {
+  const router = useRouter()
   return (
     <section className='auth-layout'>
       <p className="text-center text-2xl md:text-3xl font-medium text-black mb-3 md:mb-5">Welcome Back</p>
@@ -26,7 +29,9 @@ export default function Page() {
           </div>
           <Link href="/forgot-password">Forgot Password?</Link>
         </div>
-        <Button variant={'default'} className="block mx-auto w-[70%] sm:w-[90%] lg:w-[50%] xl:w-[30%] font-medium h-10">Sign In</Button>
+        <Button 
+          onClick={(e)=>{e.preventDefault(); router.push("/home")}}
+         variant={'default'} className="block mx-auto w-[70%] sm:w-[90%] lg:w-[50%] xl:w-[30%] font-medium h-10">Sign In</Button>
         <p className='text-center mt-4 md:mt-6 text-[#4d4d4d]'>Dont have an account <Link href="/signup" className='text-black underline hover:no-underline font-medium'>Sign Up Here</Link></p>
       </form>
     </section>
