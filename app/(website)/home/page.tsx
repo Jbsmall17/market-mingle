@@ -1,7 +1,4 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Newletter from "@/components/Newletter";
 import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
@@ -103,7 +100,6 @@ export default function Home() {
 
   return (
     <main className="overflow-x-hidden">
-      <Header />
       <Hero />
       <section className="pt-6 md:pt-8 lg:pt-10 xl:pt-12 bg-[#f5f5f5]">
         <p className="text-base sm:text-xl text-center mb-2">Categories</p>
@@ -359,8 +355,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Newletter />
-      <Footer />
     </main>
   );
 }
