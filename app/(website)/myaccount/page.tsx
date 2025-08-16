@@ -1,7 +1,4 @@
 'use client';
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Newletter from "@/components/Newletter";
 import image from "@/components/img/profilepic.png";
 import { useState } from "react";
 
@@ -11,7 +8,6 @@ export default function MyAccountPage() {
   
   return (
     <div>
-      <Header />
         <main className="container mx-auto p-4 mt-10">
            <div className="text-center">
                 <h1 className="text-3xl font-bold mb-5">My Account</h1>
@@ -96,8 +92,6 @@ export default function MyAccountPage() {
                 </div>
             </div>
         </main>
-      <Newletter />
-      <Footer />
     </div>
   );
 }

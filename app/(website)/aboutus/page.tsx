@@ -1,6 +1,3 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Newletter from "@/components/Newletter";
 import image from "@/components/img/about1.png";
 import check from "@/components/img/check.png";
 import about from "@/components/img/about2.png";
@@ -11,7 +8,6 @@ import logo2 from "@/components/img/logo2.png";
 export default function AboutPage() {
   return (
     <div>
-      <Header />
         <main className="container mx-auto p-4 mt-10">
             <div className="text-center">
                 <h1 className="text-3xl font-bold mb-5">About Us</h1>
@@ -59,8 +55,6 @@ export default function AboutPage() {
                 </div>
             </div>
         </main>
-      <Newletter />
-      <Footer />
     </div>
   );
 }
