@@ -9,7 +9,7 @@ const Product = ({
     weight,
     type,
     actualPrice,
-    setStep
+    handleFunc
   }: {
     imgPath: string;
     name: string;
@@ -18,13 +18,13 @@ const Product = ({
     weight?: string;
     type: string;
     actualPrice?: number;
-    setStep?: (prev: number) => void
+    handleFunc?: (num: number) => void
   }) => {
     const ratingArr = [1, 2, 3, 4, 5];
 
     const handleClick = () => {
-        if(!setStep) return
-        setStep(2)
+        if(!handleFunc) return
+        handleFunc(2)
     }
 
     return (

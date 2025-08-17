@@ -3,10 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
   ArrowRight,
-  Heart,
-  ShoppingCart,
   Star,
-  StarHalf,
 } from "lucide-react";
 import Image from "next/image";
 import Product from "@/components/Products";

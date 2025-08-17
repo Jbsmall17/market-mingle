@@ -9,6 +9,9 @@ import React, { useState } from "react";
 
 export default function Page() {
   const [step, setStep] = useState(1);
+  const changeStep = (num: number) => {
+    setStep(num)
+  } 
   const ProductCategory = ({
     image,
     text,
@@ -325,7 +328,7 @@ export default function Page() {
                 rating={product.rating}
                 weight={product.weight}
                 type="third"
-                setStep={setStep}
+                handleFunc={changeStep}
               />
             ))}
           </div>
