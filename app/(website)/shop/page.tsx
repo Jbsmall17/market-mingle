@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight, Heart, Minus, Plus, Star } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function page() {
+export default function Page() {
   const [step, setStep] = useState(1);
   const ProductCategory = ({
     image,
@@ -47,7 +47,7 @@ export default function page() {
     description: string;
     price: string;
   }) => {
-    let ratingMap = [1, 2, 3, 4, 5];
+    const ratingMap = [1, 2, 3, 4, 5];
 
     return (
       <div className="pt-8 md:pt-10 lg:pt-12 pb-4 md:pb-6 lg:pb-8">
