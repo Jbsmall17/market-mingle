@@ -1,6 +1,6 @@
 'use client';
-import image from "@/components/img/profilepic.png";
 import { useState } from "react";
+import profilePic from "@/public/profilepic.png";
 
 export default function MyAccountPage() {
   const [gender, setGender] = useState("");
@@ -35,7 +35,7 @@ export default function MyAccountPage() {
                     </div>
                 </div>
                 <div className="w-full md:w-3/4 rounded-lg ">
-                    <img src={image.src} alt="Profile picture" className="w-24 md:w-30 h-24 md:h-30 mr-5" />
+                  <img src={profilePic.src} alt="Profile picture" className="w-24 md:w-30 h-24 md:h-30 mr-5" />
                     <div className="mt-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-around ">
                        <div className="w-full md:w-1/2">
                          <h3 className="font-bold">First Name *</h3>
