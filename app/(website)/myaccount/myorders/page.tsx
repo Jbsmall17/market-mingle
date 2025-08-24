@@ -3,8 +3,10 @@ import { useState } from "react";
 import tissue from "@/components/img/tissue.png";
 import oil from "@/components/img/oil.png";
 import rice from "@/components/img/rice.png";
+import { useRouter } from "next/navigation";
 
 export default function MyAccountPage() {
+  const router = useRouter()
   const [gender, setGender] = useState("");
   const [showGenderDropdown, setShowGenderDropdown] = useState(false);
   
@@ -17,10 +19,10 @@ export default function MyAccountPage() {
             </div>
             <div className="mt-5 flex flex-col md:flex-row gap-16 md:gap-20 lg:gap-24 xl:gap-30 justify-around p-10">
                 <div className="w-full md:w-1/4">
-                     <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
+                     <div onClick={() => router.push("/myaccount")} className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
                         Personal Information
                     </div>
-                    <div className=" mb-5 hover:cursor-pointer text-white  hover:opacity-80 bg-orange-400 p-3 md:p-4 rounded-lg">
+                    <div onClick={() => router.push("/myaccount/myorders")} className=" mb-5 hover:cursor-pointer text-white  hover:opacity-80 bg-orange-400 p-3 md:p-4 rounded-lg">
                       My Orders
                     </div>
                      <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
