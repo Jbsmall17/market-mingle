@@ -1,5 +1,4 @@
 'use client';
-import { useState } from "react";
 import tissue from "@/components/img/tissue.png";
 import oil from "@/components/img/oil.png";
 import rice from "@/components/img/rice.png";
@@ -7,8 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function MyAccountPage() {
   const router = useRouter()
-  const [gender, setGender] = useState("");
-  const [showGenderDropdown, setShowGenderDropdown] = useState(false);
+
   
   return (
     <div>
