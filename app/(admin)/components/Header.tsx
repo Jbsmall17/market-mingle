@@ -15,6 +15,9 @@ export default function Header() {
             case '/inventory-management':
                 name = 'Inventory Management';
                 break;
+            case '/inventory-management/add-product':
+                name = 'Inventory Management';
+                break;
             case '/order-management':
                 name = 'Order Management';
                 break;
