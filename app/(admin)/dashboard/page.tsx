@@ -39,15 +39,15 @@ export default function page() {
                 </div>
                 <div className='flex flex-col items-center border border-[#FFA32D] rounded-lg gap-2 px-6 py-10 flex-1'>
                   <img src={ordersIcon.src} alt="Add Icon" className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14" />
-                  <p className='text-[#FFA32D] text-xs md:text-sm lg:text-base px-2 py-1 text-center'>Add Product</p>
+                  <p className='text-[#FFA32D] text-xs md:text-sm lg:text-base px-2 py-1 text-center'>Orders List</p>
                 </div>
                 <div className='flex flex-col items-center border border-[#238CAC] rounded-lg gap-2 px-6 py-10 flex-1'>
                   <img src={messageIcon.src} alt="Add Icon" className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14" />
-                  <p className='text-[#238CAC] text-xs md:text-sm lg:text-base px-2 py-1 text-center'>Add Product</p>
+                  <p className='text-[#238CAC] text-xs md:text-sm lg:text-base px-2 py-1 text-center'>Send Messages</p>
                 </div>
                 <div className='flex flex-col items-center border border-[#1B27CA] rounded-lg gap-2 px-6 py-10 flex-1'>
                   <img src={salesIcon.src} alt="Add Icon" className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14" />
-                  <p className='text-[#1B27CA] text-xs md:text-sm lg:text-base px-2 py-1 text-center'>Add Product</p>
+                  <p className='text-[#1B27CA] text-xs md:text-sm lg:text-base px-2 py-1 text-center'>Export Sales Report</p>
                 </div>
               </div>
             </div>
