@@ -31,7 +31,7 @@ export default function Header() {
                 name = 'Analytics & Reports';
                 break;
             case '/settings':
-                name = 'Settings';
+                name = "";
                 break;
             default :
                 name = 'no page found';
