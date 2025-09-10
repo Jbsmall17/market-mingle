@@ -24,6 +24,9 @@ export default function Header() {
             case '/delivery-settings':
                 name = 'Delivery Settings';
                 break;
+            case '/delivery-settings/assign-rider':
+                name = 'Delivery Settings';
+                break;
             case '/users-subscription-management':
                 name = 'Users Subscription Management';
                 break;
