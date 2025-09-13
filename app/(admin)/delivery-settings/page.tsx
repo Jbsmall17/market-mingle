@@ -1,5 +1,6 @@
 import React from 'react'
 import searchIcon from '@/components/img/searchicon.png'
+import Link from 'next/link'
 
 export default function page() {
   return (
@@ -41,7 +42,9 @@ export default function page() {
           <div className="font-bold text-sm md:text-base lg:text-lg text-[#000] mb-1">Chioma Olojo Musa</div>
           <div className="flex flex-row items-center justify-between">
             <span className="text-xs md:text-sm lg:text-base text-[#000]">12, adams babs Street, Victoria Island, Lagos</span>
-            <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">Assign rider</button>
+            <Link href="/delivery-settings/assign-rider">
+              <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">Assign rider</button>
+            </Link>
           </div>
         </div>
         {/* Delivered */}
@@ -54,7 +57,9 @@ export default function page() {
           <div className="font-bold text-sm md:text-base lg:text-lg text-[#000] mb-1">Emeka Okoro</div>
           <div className="flex flex-row items-center justify-between">
             <span className="text-xs md:text-sm lg:text-base text-[#000]">22, Allen Avenue, Ikeja, Lagos</span>
-            <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">See Details</button>
+            <Link href="/delivery-settings/assign-rider">
+              <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">Assign rider</button>
+            </Link>
           </div>
         </div>
         {/* Cancelled */}
@@ -67,7 +72,9 @@ export default function page() {
           <div className="font-bold text-sm md:text-base lg:text-lg text-[#000] mb-1">Bola Ajayi</div>
           <div className="flex flex-row items-center justify-between">
             <span className="text-xs md:text-sm lg:text-base text-[#000]">18, Broad Street, Lagos Island, Lagos</span>
-            <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">See Details</button>
+             <Link href="/delivery-settings/assign-rider">
+              <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">Assign rider</button>
+            </Link>
           </div>
         </div>
         {/* Delivered */}
@@ -80,7 +87,9 @@ export default function page() {
           <div className="font-bold text-sm md:text-base lg:text-lg text-[#000] mb-1">Fatima Yusuf</div>
           <div className="flex flex-row items-center justify-between">
             <span className="text-xs md:text-sm lg:text-base text-[#000]">5, Marina Road, Lagos Island, Lagos</span>
-            <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">See Details</button>
+            <Link href="/delivery-settings/assign-rider">
+              <button className="bg-[#FFA32D] text-black font-bold rounded px-4 py-2 text-xs md:text-sm lg:text-base cursor-pointer">Assign rider</button>
+            </Link>
           </div>
         </div>
       </div>

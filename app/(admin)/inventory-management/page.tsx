@@ -1,6 +1,8 @@
 import React from 'react'
 import searchIcon from '@/components/img/searchicon.png'
 import addIcon from '@/components/img/add2.png'
+import Link from 'next/link'
+
 export default function page() {
   return (
     <div>
@@ -19,10 +21,12 @@ export default function page() {
       </div>
       <div className='flex justify-between items-center px-4 md:px-8 lg:px-12'>
         <h1 className='font-bold text-2xl'>Inventory</h1>
-        <div className='flex flex-col items-center bg-[#285521] gap-2 px-6 py-2 rounded-xs'>
-          <img src={addIcon.src} alt="Add Icon" className="w-4 h-4 md:w-3 md:h-3 lg:w-4 lg:h-4" />
-          <p className='text-white text-xs md:text-sm lg:text-sm'>Add Product</p>
-        </div>
+        <Link href="/inventory-management/add-product">
+          <div className='flex flex-col items-center bg-[#285521] gap-2 px-6 py-2 rounded-xs'>
+            <img src={addIcon.src} alt="Add Icon" className="w-4 h-4 md:w-3 md:h-3 lg:w-4 lg:h-4" />
+            <p className='text-white text-xs md:text-sm lg:text-sm'>Add Product</p>
+          </div>
+        </Link>
       </div>
       <div className='flex flex-row justify-between items-center px-2 md:px-8 lg:px-12 mt-6 gap-2 md:gap-4 lg:gap-8'>
         <div className='flex flex-col items-center gap-2 border border-[#285521] rounded-sm px-6 py-4 min-w-[100px] lg:min-w-[220px] lg:px-12 lg:py-8 lg:gap-4 lg:rounded-md bg-white'>
@@ -126,10 +130,10 @@ export default function page() {
         </div>
       </div>
       <div className="w-full flex items-center justify-between mt-6 px-2 md:px-8 lg:px-12">
-      <button className="text-[#606060] text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold whitespace-nowrap">&lt; Back</button>
-      <span className="font-bold text-[#606060] text-[10px] sm:text-xs md:text-sm lg:text-base whitespace-nowrap">1 of 20</span>
-      <button className="text-[#606060] text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold whitespace-nowrap">Next &gt;</button>
-    </div>
+        <button className="text-[#606060] text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold whitespace-nowrap cursor-pointer">&lt; Back</button>
+        <span className="font-bold text-[#606060] text-[10px] sm:text-xs md:text-sm lg:text-base whitespace-nowrap">1 of 20</span>
+        <button className="text-[#606060] text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold whitespace-nowrap cursor-pointer">Next &gt;</button>
+      </div>
     </div>
   )
 }

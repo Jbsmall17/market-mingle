@@ -25,10 +25,14 @@ export default function Sidebar() {
         </li>
         </Link>
         <Link href="/inventory-management">
-        <li className={`cursor-pointer flex flex-row items-center gap-3 p-2 rounded-lg hover:bg-secondary ${pathname === '/inventory-management' ? "bg-secondary" : ""}`}>
+          <li className={`cursor-pointer flex flex-row items-center gap-3 p-2 rounded-lg hover:bg-secondary ${
+            pathname === '/inventory-management' || pathname === '/inventory-management/add-product'
+              ? "bg-secondary"
+              : ""
+          }`}>
             <ListOrdered />
             <span>Inventory Management</span>
-        </li>
+          </li>
         </Link>
         <Link href="/order-management">
         <li className={`cursor-pointer flex flex-row items-center gap-3 p-2 rounded-lg hover:bg-secondary ${pathname === '/order-management' ? "bg-secondary" : ""}`}>
@@ -37,10 +41,14 @@ export default function Sidebar() {
         </li>
         </Link>
         <Link href="/delivery-settings">
-        <li className={`cursor-pointer flex flex-row items-center gap-3 p-2 rounded-lg hover:bg-secondary ${pathname === '/delivery-settings' ? "bg-secondary" : ""}`}>
+          <li className={`cursor-pointer flex flex-row items-center gap-3 p-2 rounded-lg hover:bg-secondary ${
+            pathname === '/delivery-settings' || pathname === '/delivery-settings/assign-rider'
+              ? "bg-secondary"
+              : ""
+          }`}>
             <Truck />
             <span>Delivery Settings</span>
-        </li>
+          </li>
         </Link>
         <Link href="/users-subcription-management">
         <li className={`cursor-pointer flex flex-row items-center gap-3 p-2 rounded-lg hover:bg-secondary ${pathname === '/users-subcription-management' ? "bg-secondary" : ""}`}>
