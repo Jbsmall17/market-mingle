@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 
-export default function page() {
+export default function Page() {
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
 
   const handleAssignClick = (rowIdx: number) => {
