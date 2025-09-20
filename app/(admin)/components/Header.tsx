@@ -1,10 +1,14 @@
 "use client"
-import { Bell } from 'lucide-react';
+import { Bell, Menu } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
-export default function Header() { 
+type headerType = {
+    setIsSidebarOpen : Dispatch<SetStateAction<boolean>>
+}
+
+export default function Header({setIsSidebarOpen}: headerType) { 
     const pathname = usePathname()
     const getPageTitle = (path: string) =>{
         let name;
@@ -27,7 +31,7 @@ export default function Header() {
             case '/delivery-settings/assign-rider':
                 name = 'Delivery Settings';
                 break;
-            case '/users-subscription-management':
+            case '/users-subcription-management':
                 name = 'Users Subscription Management';
                 break;
             case '/analytics-reports':
@@ -44,17 +48,21 @@ export default function Header() {
     }
   return (
     <div>
-        <div className='flex flex-row items-center justify-end gap-12 md:gap-24 lg:gap-32'>
-            <h1 className='text-black text-3xl font-semibold'>{getPageTitle(pathname)}</h1>
-            <div className='flex flex-row items-center gap-2 text-black'>
-                <Bell className='fill-current' />
-                <p className='text-xl font-semibold'>Admin</p>
-                <Image 
-                    src="/admin.svg"
-                    alt="admin profile"
-                    width={40}
-                    height={40}
-                />
+        <div className='flex flex-row items-center justify-between lg:justify-end'>
+            <Menu onClick={()=> setIsSidebarOpen(true)} className='size-6 sm:size-8 block lg:hidden' />
+            <div className='flex flex-row items-center gap-6 sm:gap-10 md:gap-24 lg:gap-32'>
+                <h1 className='text-black text-2xl sm:text-2xl lg:text-3xl font-semibold'>{getPageTitle(pathname)}</h1>
+                <div className='flex flex-row items-center gap-2 text-black'>
+                    <Bell className='fill-current size-6 sm:size-8' />
+                    <p className='text-base sm:text-xl font-semibold'>Admin</p>
+                    <Image 
+                        src="/admin.svg"
+                        alt="admin profile"
+                        className='w-[32px] h-[32px] lg:w-[40px] lg:h-[40px]'
+                        width={40}
+                        height={40}
+                    />
+            </div>
             </div>
         </div>
     </div>
