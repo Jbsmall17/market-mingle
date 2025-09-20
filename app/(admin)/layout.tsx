@@ -3,7 +3,7 @@ import React, { ReactNode, useState } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 
-export default function layout({children}: {children: ReactNode}) {
+export default function Layout({children}: {children: ReactNode}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   return (
     <main className='flex flex-row h-screen overflow-y-hidden'>
