@@ -4,7 +4,7 @@ import InventoryList from './component/inventory-list'
 import { Divide } from 'lucide-react'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
-console.log(baseUrl)
+
 export default async function page({
   searchParams
 }: {
@@ -16,7 +16,7 @@ export default async function page({
   );
 
   const { page = "1", name = "", category = "" } = searchParams;
-  console.log(page, name, category);
+  // console.log(page, name, category);
 
   if (name) apiUrl.searchParams.set("name", name);
   if (category) apiUrl.searchParams.set("category", category);
