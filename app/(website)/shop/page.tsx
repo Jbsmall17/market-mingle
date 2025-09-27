@@ -6,11 +6,7 @@ console.log(baseUrl)
 export default async function page({
   searchParams
 }: {
-  searchParams : {
-    page?: string | undefined,
-    name?: string | undefined,
-    category?: string | undefined
-  }
+  searchParams : Record<string, string | undefined>
 }) {
 
    const apiUrl = new URL(
