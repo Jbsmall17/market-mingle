@@ -14,7 +14,7 @@ type cartItemType = {
   quantity: number;
 };
 
-export default function page() {
+export default function Page() {
   const { cartProduct, setCartProduct } = useContextValue();
   
   const clearCart = () => {

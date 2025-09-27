@@ -1,4 +1,4 @@
-import { Heart, ShoppingCart, Star, StarHalf } from "lucide-react";
+import { Heart, ShoppingCart} from "lucide-react";
 import Image from "next/image";
 
 
@@ -31,7 +31,7 @@ const Product = ({
     actualPrice?: number;
   }) => {
     const ratingArr = [1, 2, 3, 4, 5];
-
+    console.log(ratingArr,rating)
     return (
       <div
         className={` cursor-pointer w-[200px] h-auto relative rounded-lg bg-white ${
