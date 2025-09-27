@@ -49,7 +49,7 @@ const Product2 = ({
 
     return (
       <div
-        className={` w-[200px] h-auto relative rounded-lg bg-white border border-[#62a643]`}
+        className={`w-full h-auto relative rounded-lg bg-white border border-[#62a643]`}
       >
         <div
           onClick={handleClick}
@@ -67,7 +67,7 @@ const Product2 = ({
             />
         </div>
         <div className="px-2 py-1 h-auto space-y-1">
-          <p title={name.split("(")[0]} className="font-semibold text-xl">{name.split("(")[0].length > 15 ? `${name.split("(")[0].substring(0,15)}...`: name.split("(")[0]}</p>
+          <p title={name.split("(")[0]} className="font-medium text-base sm:text-xl">{name.split("(")[0].length > 15 ? `${name.split("(")[0].substring(0,15)}...`: name.split("(")[0]}</p>
           {/* <p className="flex gap-1 text-[#98905c]">
             {ratingArr.map((fig, idx) => {
               if (fig <= rating) {
