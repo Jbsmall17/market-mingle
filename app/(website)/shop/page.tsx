@@ -1,6 +1,7 @@
 /*eslint-disable @typescript-eslint/no-explicit-any*/
-import React from 'react'
+import React, { Suspense } from 'react'
 import InventoryList from './component/inventory-list'
+import { Divide } from 'lucide-react'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 console.log(baseUrl)
@@ -29,16 +30,22 @@ export default async function page({
 
     const data = await response.json()
     const products = data.products
-    return <InventoryList products={products} />
+    return (
+      <Suspense fallback={<div>loading....</div>}>
+        <InventoryList products={products} />
+      </Suspense>
+    )
   }catch(error){
     console.log(error)
     return (
+      <Suspense fallback={<div>loading....</div>}>
       <InventoryList
         products={{
           items: [],
           pagination: { page: 1, pages: 1, total: 0 },
         }}
       />
+      </Suspense>
     )
   }
 }
