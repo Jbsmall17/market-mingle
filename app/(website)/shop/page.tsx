@@ -2,18 +2,21 @@ import React from 'react'
 import InventoryList from './component/inventory-list'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
-console.log(baseUrl)
+
 export default async function page({
   searchParams
 }: {
-  searchParams : Record<string, string | undefined>
+  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
 
-   const apiUrl = new URL(
+  const apiUrl = new URL(
     `${baseUrl}/user/grocery-finance/groceries`
   );
 
-  const { page = "1", name = "", category = "" } = await searchParams;
+  // Ensure searchParams is defined and destructure safely
+  const page = typeof searchParams?.page === 'string' ? searchParams.page : Array.isArray(searchParams?.page) ? searchParams?.page[0] : "1";
+  const name = typeof searchParams?.name === 'string' ? searchParams.name : Array.isArray(searchParams?.name) ? searchParams?.name[0] : "";
+  const category = typeof searchParams?.category === 'string' ? searchParams.category : Array.isArray(searchParams?.category) ? searchParams?.category[0] : "";
   console.log(page, name, category);
 
   if (name) apiUrl.searchParams.set("name", name);
