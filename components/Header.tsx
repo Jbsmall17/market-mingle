@@ -76,11 +76,11 @@ export default function Header() {
           </div>
         </div>
         <div className="flex flex-row item-center gap-4">
-          <Link href={"/myaccount"} className="flex flex-row gap-2 items-center">
+          <div className="flex flex-row gap-2 items-center">
             <User />
             <span className="text-xs hidden lg:block">John Kush</span>
             <ChevronDown className="hidden lg:block" />
-          </Link>
+          </div>
           <Link href={"/cart"} className="flex gap-2 items-center">
             <div className="relative">
               <div 

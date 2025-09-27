@@ -1,99 +1,102 @@
-'use client';
-import { useState } from "react";
-import profilePic from "@/public/profilepic.png";
-import { useRouter } from "next/navigation";
+// 'use client';
+// import { useState } from "react";
+// import profilePic from "@/public/profilepic.png";
+// import { useRouter } from "next/navigation";
 
 export default function MyAccountPage() {
-  const router = useRouter()
-  const [gender, setGender] = useState("");
-  const [showGenderDropdown, setShowGenderDropdown] = useState(false);
+  // const router = useRouter()
+  // const [gender, setGender] = useState("");
+  // const [showGenderDropdown, setShowGenderDropdown] = useState(false);
   
   return (
-    <div>
-        <main className="container mx-auto p-4 mt-10">
-           <div className="text-center">
-                <h1 className="text-3xl font-bold mb-5">My Account</h1>
-                <h2 className="text-gray-400 text-2xl  font-bold">Home / My Account</h2>
-            </div>
-            <div className="mt-5 flex flex-col md:flex-row gap-16 md:gap-20 lg:gap-24 xl:gap-30 justify-around p-10">
-                <div className="w-full md:w-1/4">
-                    <div onClick={() => router.push("/myaccount")} className="text-center mb-5 hover:cursor-pointer text-white  hover:opacity-80 bg-orange-400 p-3 md:p-4 rounded-lg">
-                      Personal Information
-                    </div>
-                     <div onClick={() => router.push("/myaccount/myorders")} className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
-                      My Orders
-                    </div>
-                     <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
-                      Manage Address
-                    </div>
-                     <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
-                      Payment Method
-                    </div>
-                     <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
-                      Password Manager
-                    </div>
-                     <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
-                      Log Out
-                    </div>
-                </div>
-                <div className="w-full md:w-3/4 rounded-lg ">
-                  <img src={profilePic.src} alt="Profile picture" className="w-24 md:w-30 h-24 md:h-30 mr-5" />
-                    <div className="mt-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-around ">
-                       <div className="w-full md:w-1/2">
-                         <h3 className="font-bold">First Name *</h3>
-                         <input type="text" className="w-full p-2 mt-5 border-1 border-solid border-gray-900 rounded-full"/>
-                       </div>
-                        <div className="w-full md:w-1/2">
-                          <h3 className="font-bold">Last Name *</h3>
-                          <input type="text" className="w-full p-2 mt-5 border-1 border-solid border-gray-900 rounded-full" />
-                       </div>
-                    </div>
-                    <div className="mt-4 sm:mt-6 md:mt-10">
-                          <h3 className="font-bold">Email Address *</h3>
-                          <input type="text" className="w-full mt-5 p-2 border-1 border-solid border-gray-900 rounded-full" />
-                    </div>
-                    <div className="mt-4 sm:mt-6 md:mt-10">
-                          <h3 className="font-bold">Phone Number *</h3>
-                          <input type="text" className="w-full mt-5 p-2 border-1 border-solid border-gray-900 rounded-full" />
-                    </div>
-                   <div className="w-full mt-4 sm:mt-6 md:mt-10">
-                      <h3 className="font-bold">Gender *</h3>
-                      <div className="relative mt-5">
-                        <button
-                          type="button"
-                          className="w-full p-2 hover:cursor-pointer border-1 border-solid border-gray-900 rounded-full flex items-center justify-between bg-white"
-                          onClick={() => setShowGenderDropdown((prev) => !prev)}
-                        >
-                          <span>{gender || "Select Gender"}</span>
-                          <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-                        {showGenderDropdown && (
-                          <ul className="absolute left-0 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-                            {["Male", "Female", "Rather not say"].map((option) => (
-                              <li
-                                key={option}
-                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                                onClick={() => {
-                                  setGender(option);
-                                  setShowGenderDropdown(false);
-                                }}
-                              >
-                                {option}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    </div>
+    // <div>
+    //     <main className="container mx-auto p-4 mt-10">
+    //        <div className="text-center">
+    //             <h1 className="text-3xl font-bold mb-5">My Account</h1>
+    //             <h2 className="text-gray-400 text-2xl  font-bold">Home / My Account</h2>
+    //         </div>
+    //         <div className="mt-5 flex flex-col md:flex-row gap-16 md:gap-20 lg:gap-24 xl:gap-30 justify-around p-10">
+    //             <div className="w-full md:w-1/4">
+    //                 <div onClick={() => router.push("/myaccount")} className="text-center mb-5 hover:cursor-pointer text-white  hover:opacity-80 bg-orange-400 p-3 md:p-4 rounded-lg">
+    //                   Personal Information
+    //                 </div>
+    //                  <div onClick={() => router.push("/myaccount/myorders")} className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
+    //                   My Orders
+    //                 </div>
+    //                  <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
+    //                   Manage Address
+    //                 </div>
+    //                  <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
+    //                   Payment Method
+    //                 </div>
+    //                  <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
+    //                   Password Manager
+    //                 </div>
+    //                  <div className=" mb-5 border-1 hover:cursor-pointer border-solid hover:bg-gray-100 border-gray-800  p-3 md:p-4 rounded-lg">
+    //                   Log Out
+    //                 </div>
+    //             </div>
+    //             <div className="w-full md:w-3/4 rounded-lg ">
+    //               <img src={profilePic.src} alt="Profile picture" className="w-24 md:w-30 h-24 md:h-30 mr-5" />
+    //                 <div className="mt-8 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-around ">
+    //                    <div className="w-full md:w-1/2">
+    //                      <h3 className="font-bold">First Name *</h3>
+    //                      <input type="text" className="w-full p-2 mt-5 border-1 border-solid border-gray-900 rounded-full"/>
+    //                    </div>
+    //                     <div className="w-full md:w-1/2">
+    //                       <h3 className="font-bold">Last Name *</h3>
+    //                       <input type="text" className="w-full p-2 mt-5 border-1 border-solid border-gray-900 rounded-full" />
+    //                    </div>
+    //                 </div>
+    //                 <div className="mt-4 sm:mt-6 md:mt-10">
+    //                       <h3 className="font-bold">Email Address *</h3>
+    //                       <input type="text" className="w-full mt-5 p-2 border-1 border-solid border-gray-900 rounded-full" />
+    //                 </div>
+    //                 <div className="mt-4 sm:mt-6 md:mt-10">
+    //                       <h3 className="font-bold">Phone Number *</h3>
+    //                       <input type="text" className="w-full mt-5 p-2 border-1 border-solid border-gray-900 rounded-full" />
+    //                 </div>
+    //                <div className="w-full mt-4 sm:mt-6 md:mt-10">
+    //                   <h3 className="font-bold">Gender *</h3>
+    //                   <div className="relative mt-5">
+    //                     <button
+    //                       type="button"
+    //                       className="w-full p-2 hover:cursor-pointer border-1 border-solid border-gray-900 rounded-full flex items-center justify-between bg-white"
+    //                       onClick={() => setShowGenderDropdown((prev) => !prev)}
+    //                     >
+    //                       <span>{gender || "Select Gender"}</span>
+    //                       <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    //                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    //                       </svg>
+    //                     </button>
+    //                     {showGenderDropdown && (
+    //                       <ul className="absolute left-0 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+    //                         {["Male", "Female", "Rather not say"].map((option) => (
+    //                           <li
+    //                             key={option}
+    //                             className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+    //                             onClick={() => {
+    //                               setGender(option);
+    //                               setShowGenderDropdown(false);
+    //                             }}
+    //                           >
+    //                             {option}
+    //                           </li>
+    //                         ))}
+    //                       </ul>
+    //                     )}
+    //                   </div>
+    //                 </div>
 
-                    <button className="mt-4 sm:mt-6 md:mt-10 bg-green-800 text-white px-4 py-2 hover:cursor-pointer md:w-90 rounded-full">
-                      Update Changes
-                    </button>
-                </div>
-            </div>
-        </main>
-    </div>
+    //                 <button className="mt-4 sm:mt-6 md:mt-10 bg-green-800 text-white px-4 py-2 hover:cursor-pointer md:w-90 rounded-full">
+    //                   Update Changes
+    //                 </button>
+    //             </div>
+    //         </div>
+    //     </main>
+    // </div>
+    <>
+    Account page
+    </>
   );
 }
