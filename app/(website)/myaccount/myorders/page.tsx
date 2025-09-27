@@ -4,7 +4,7 @@
 // import rice from "@/components/img/rice.png";
 // import { useRouter } from "next/navigation";
 
-export default function MyAccountPage() {
+export default function Page() {
   // const router = useRouter()
 
   
