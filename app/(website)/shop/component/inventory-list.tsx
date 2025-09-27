@@ -64,10 +64,10 @@ export default function InventoryList({
           src={image !== "" ? image : "/placeholder.svg"}
           height={60}
           width={60}
-          className="w-[40px] md:w-[60px] h-[40px] md:h-[60px]"
+          className="h-[32px] sm:w-[40px] md:w-[60px] h-[32px] sm:h-[40px] md:h-[60px]"
           alt="image"
         />
-        <p className="text-sm md:text-base text-center font-medium mt-2">
+        <p className="text-xs sm:text-sm md:text-base text-center sm:font-medium mt-2">
           {text}
         </p>
       </div>
@@ -290,15 +290,15 @@ export default function InventoryList({
           </ul>
         </div>
       </div>
-      <div className="relative flex-1 pl-4 md:pl-6 min-w-[450px] sm:min-w-[640px] overflow-x-auto">
+      <div className="relative flex-1 sm:pl-4 md:pl-6 sm:min-w-[640px] overflow-x-auto">
         <div className="py-4 md:py-6 flex flex-row justify-between items-center">
           <p className="text-black font-normal text-sm">
             showing {productsObj.pagination.page}-{productsObj.pagination.pages}{" "}
             of {productsObj.pagination.total} results
           </p>
           <div  className="block sm:hidden flex flex-row gap-4 items-center">
-            <p className="text-xl font-medium">Filter by:</p>
-            <p onClick={()=> setShowFilter(true)} className="text-base font-medium p-2 border rounded-lg">
+            <p className="text-sm sm:text-base md:text-xl font-medium">Filter by:</p>
+            <p onClick={()=> setShowFilter(true)} className="text-sm sm:text-base font-medium p-1.5 sm:p-2 border rounded-lg">
               Category
             </p>
           </div>
@@ -325,7 +325,7 @@ export default function InventoryList({
             <div
               className={`my-6 md:my-8 lg:my-10 place-items-center ${
                 productsObj.items.length > 0
-                  ? "grid sm:grid-cols-3 xl:grid-cols-4"
+                  ? "grid grid-cols-[repeat(auto-fit,minmax(165px,1fr))] grid-4"
                   : "flex justify-center items-center min-h-[400px]"
               }  gap-4 md:gap-6 lg:gap-8`}
             >
@@ -357,13 +357,16 @@ export default function InventoryList({
                 productsObj.pagination.page == 1 ? "text-[#e7e7e7]" : ""
               }`}
               onClick={() => {
-                setProductsObj((prev) => ({
+                setProductsObj((prev) => {
+                  const value = Math.max(1, prev.pagination.page - 1) || "1"
+                  handleParams(value as string)
+                  return {
                   ...prev,
                   pagination: {
                     ...prev.pagination,
                     page: Math.max(1, prev.pagination.page - 1),
                   },
-                }));
+                }});
               }}
             />
             {
@@ -403,7 +406,10 @@ export default function InventoryList({
                   : ""
               }`}
               onClick={() => {
-                setProductsObj((prev) => ({
+                setProductsObj((prev) => {
+                  const value = Math.min(prev.pagination.page + 1, prev.pagination.pages)|| "1"
+                  handleParams(value as string)
+                  return {
                   ...prev,
                   pagination: {
                     ...prev.pagination,
@@ -412,7 +418,7 @@ export default function InventoryList({
                       prev.pagination.pages
                     ),
                   },
-                }));
+                }});
               }}
             />
           </div>
@@ -426,8 +432,8 @@ export default function InventoryList({
       {relatedProducts.length > 0 && (
         <>
           <p className="text-xl font-semibold mb-5">Related Products</p>
-          <div className="flex flex-row gap-6 mb-6 md:mb-8 lg:mb-10">
-            {relatedProducts.map((item, index) => (
+          <div className="flex flex-row flex-wrap gap-6 mb-6 md:mb-8 lg:mb-10">
+            {relatedProducts.slice(0,2).map((item, index) => (
               <Product2
                 key={index}
                 imgPath={item.image}
