@@ -349,7 +349,7 @@ export default function InventoryList({
             </div>
           </div>
           {
-            products.items.length >= 10
+            products.items.length >= 1
             &&
           <div className="mb-6 md:mb-8 lg:mb-10 flex justify-center items-center gap-6 md:gap-8">
             <ArrowLeft

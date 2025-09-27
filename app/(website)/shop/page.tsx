@@ -2,21 +2,22 @@ import React from 'react'
 import InventoryList from './component/inventory-list'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
-
+console.log(baseUrl)
 export default async function page({
   searchParams
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams : {
+    page?: string,
+    name?: string,
+    category?: string
+  }
 }) {
 
-  const apiUrl = new URL(
+   const apiUrl = new URL(
     `${baseUrl}/user/grocery-finance/groceries`
   );
 
-  // Ensure searchParams is defined and destructure safely
-  const page = typeof searchParams?.page === 'string' ? searchParams.page : Array.isArray(searchParams?.page) ? searchParams?.page[0] : "1";
-  const name = typeof searchParams?.name === 'string' ? searchParams.name : Array.isArray(searchParams?.name) ? searchParams?.name[0] : "";
-  const category = typeof searchParams?.category === 'string' ? searchParams.category : Array.isArray(searchParams?.category) ? searchParams?.category[0] : "";
+  const { page = "1", name = "", category = "" } = searchParams;
   console.log(page, name, category);
 
   if (name) apiUrl.searchParams.set("name", name);
@@ -31,7 +32,6 @@ export default async function page({
 
     const data = await response.json()
     const products = data.products
-
     return <InventoryList products={products} />
   }catch(error){
     console.log(error)
