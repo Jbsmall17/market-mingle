@@ -1,3 +1,4 @@
+/*eslint-disable @typescript-eslint/no-explicit-any*/
 import React from 'react'
 import InventoryList from './component/inventory-list'
 
@@ -6,11 +7,7 @@ console.log(baseUrl)
 export default async function page({
   searchParams
 }: {
-  searchParams : {
-    page?: string,
-    name?: string,
-    category?: string
-  }
+  searchParams : any
 }) {
 
    const apiUrl = new URL(
