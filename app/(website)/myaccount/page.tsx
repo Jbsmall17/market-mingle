@@ -3,7 +3,7 @@ import { useState } from "react";
 import profilePic from "@/public/profilepic.png";
 import { useRouter } from "next/navigation";
 
-export default function MyAccountPage() {
+export default function Page() {
   const router = useRouter()
   const [gender, setGender] = useState("");
   const [showGenderDropdown, setShowGenderDropdown] = useState(false);
