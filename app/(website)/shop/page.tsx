@@ -7,9 +7,9 @@ export default async function page({
   searchParams
 }: {
   searchParams : {
-    page?: string,
-    name?: string,
-    category?: string
+    page?: string | undefined,
+    name?: string | undefined,
+    category?: string | undefined
   }
 }) {
 
@@ -32,7 +32,7 @@ export default async function page({
 
     const data = await response.json()
     const products = data.products
-    
+
     return <InventoryList products={products} />
   }catch(error){
     console.log(error)
