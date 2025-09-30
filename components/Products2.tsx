@@ -1,8 +1,10 @@
 import { productType, useContextValue } from "@/context/context";
 import { Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 const Product2 = ({
     imgPath,
@@ -11,7 +13,7 @@ const Product2 = ({
     price,
     weight,
     actualPrice,
-    handleFunc,
+    // handleFunc,
     item,
   }: {
     imgPath: string;
@@ -20,14 +22,17 @@ const Product2 = ({
     price: number;
     weight?: string;
     actualPrice?: number;
-    handleFunc: (num: number, product: productType) => void,
+    // handleFunc: (num: number, product: productType) => void,
     item: productType,
   }) => {
+    const router = useRouter()
     const { setCartProduct } = useContextValue();
     const ratingArr = [1, 2, 3, 4, 5];
     console.log(ratingArr, rating)
     const handleClick = () => {
-        handleFunc(2,item)
+        // handleFunc(2,item)
+        router.push(`/products/${item.name}`)
+
     }
 
     const addToCart = () => {
@@ -47,9 +52,10 @@ const Product2 = ({
     });
   };
 
+
     return (
       <div
-        className={`w-full h-auto relative rounded-lg bg-white border border-[#62a643]`}
+        className={`w-full min-h-[220px] relative rounded-lg bg-white border border-[#62a643]`}
       >
         <div
           onClick={handleClick}

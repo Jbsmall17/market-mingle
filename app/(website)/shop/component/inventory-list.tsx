@@ -5,9 +5,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, Filter, X} from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { getPagination } from "@/lib/utils";
+import { Category, getPagination } from "@/lib/utils";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { productType } from "@/context/context";
+import { productType, useContextValue } from "@/context/context";
 import ProductDetails from "./product-details";
 
 type productObjType = {
@@ -15,41 +15,24 @@ type productObjType = {
   pagination: { page: number; pages: number; total: number };
 };
 
+type categoryType = {
+  description : string,
+  id : string,
+  name : string
+}
+
 export default function InventoryList({
   products,
+  categoryArray
 }: {
   products: productObjType;
+  categoryArray: categoryType[]
 }) {
-  const [productsObj, setProductsObj] = useState({
-    items: products.items,
-    pagination: {
-      page: products.pagination.page,
-      pages: products.pagination.pages,
-      total: products.pagination.total,
-    },
-  });
+  const {productsObj, setProductsObj} = useContextValue()
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState<productType>({
-    _id: "",
-    barcode: "",
-    category: "",
-    description: "",
-    name: "",
-    image: "",
-    price: { selling: 0, cost: 0 },
-    stock: { quantity: 0 },
-    type: "",
-    salesPrice: { isActive: false },
-    variantItems: [],
-  });
   const [showFilter, setShowFilter] = useState(false)
-  const changeStep = (num: number, product: productType) => {
-    setStep(num);
-    setSelectedProduct(product);
-  };
   const [category, setCategory] = useState("");
   const ProductCategory = ({
     image,
@@ -74,25 +57,8 @@ export default function InventoryList({
     );
   };
 
-  const handleStep = () => {
-    setStep(1),
-    setSelectedProduct({
-      _id: "",
-    barcode: "",
-    category: "",
-    description: "",
-    name: "",
-    image: "",
-    price: { selling: 0, cost: 0 },
-    stock: { quantity: 0 },
-    type: "",
-    salesPrice: { isActive: false },
-    variantItems: [],
-    })
-  }
 
 
-  // const search = searchParams.get("page") || ""
   const handleParams = (page: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page);
@@ -116,30 +82,22 @@ export default function InventoryList({
     productsObj.pagination.pages
   );
 
-  const relatedProducts = products.items.filter((product) => {
-    return (
-      product.category.toLowerCase() ==
-        selectedProduct.category.toLowerCase() &&
-      product.name.toLowerCase() !== selectedProduct.name.toLowerCase()
-    );
-  });
-
-  // console.log(relatedProducts);
-
   useEffect(() => {
     setProductsObj({
       items: products.items,
       pagination: {
         page: products.pagination.page,
-        pages: products.pagination.pages,
+        pages: products.pagination.pages !== 0 ?products.pagination.pages : 0,
         total: products.pagination.total,
       },
     });
+    sessionStorage.setItem("products",JSON.stringify(products))
+
   }, [products]);
 
-  return step == 1 ? (
-    <div className="relative main-padding flex flex-col sm:flex-row overflow-x-auto">
-      <div className={`min-w-[200px] pt-4 md:pt-6 lg:pt-8 border-r border-black absolute sm:static top-0 left-0 bg-white z-10 pl-4 sm:pl-0 ${showFilter ? "block" : "hidden sm:block" }`}>
+  return (
+    <div className="relative flex flex-col sm:flex-row overflow-x-auto h-screen overflow-hidden">
+      <div className={`min-w-[200px] pt-4 pb-4 md:pt-6 lg:pt-8 border-r border-black absolute sm:static top-0 left-0 bg-white z-10 pl-4 sm:pl-0 md:pl-8 lg:pl-10 xl:pl-14 ${showFilter ? "block" : "hidden sm:block" } overflow-y-auto`}>
         <X onClick={()=>setShowFilter(false)} className="block sm:hidden absolute top-2 right-2" />
         <p className="font-medium text-base sm:text-xl border-b border-black mr-2">
           Filter Options
@@ -147,151 +105,22 @@ export default function InventoryList({
         <p className="my-4 md:my-6 font-light text-base">Category</p>
         <div>
           <ul className="list-none text-xs sm:text-sm space-y-3">
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "diary&baking"}
-                onCheckedChange={() => handleCategoryParams("diary&baking")}
-              />
-              <span>Diary & Baking</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "bakery"}
-                onCheckedChange={() => handleCategoryParams("bakery")}
-              />
-              <span>Bakery</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "households"}
-                onCheckedChange={() => handleCategoryParams("households")}
-              />
-              <span>Households</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "water&drinks"}
-                onCheckedChange={() => handleCategoryParams("water&drinks")}
-              />
-              <span>Water & Drinks</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "liqour"}
-                onCheckedChange={() => handleCategoryParams("liqour")}
-              />
-              <span>Liquor</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "pasta&rice"}
-                onCheckedChange={() => handleCategoryParams("pasta&rice")}
-              />
-              <span>Pasta & Rice</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "stationeries"}
-                onCheckedChange={() => handleCategoryParams("diary&baking")}
-              />
-              <span>Stationeries</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "babyitems"}
-                onCheckedChange={() => handleCategoryParams("babyitems")}
-              />
-              <span>Baby Items</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "health&beauty"}
-                onCheckedChange={() => handleCategoryParams("health&beauty")}
-              />
-              <span>Health & Beauty</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "snacks&sweets"}
-                onCheckedChange={() => handleCategoryParams("snacks&sweets")}
-              />
-              <span>Snacks & Sweets</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "breakfast"}
-                onCheckedChange={() => handleCategoryParams("breakfast")}
-              />
-              <span>Breakfast</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "fast_produce"}
-                onCheckedChange={() => handleCategoryParams("fast_produce")}
-              />
-              <span>Fast Produce</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "condiments"}
-                onCheckedChange={() => handleCategoryParams("condiments")}
-              />
-              <span>Condiments & spice</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "frozen"}
-                onCheckedChange={() => handleCategoryParams("frozen")}
-              />
-              <span>Frozen Foods</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "pharmacy"}
-                onCheckedChange={() => handleCategoryParams("pharmacy")}
-              />
-              <span>Pharmacy</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "canned_goods"}
-                onCheckedChange={() => handleCategoryParams("canned_goods")}
-              />
-              <span>Canned goods</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "icecream"}
-                onCheckedChange={() => handleCategoryParams("icecream")}
-              />
-              <span>Icecream & Deserts</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "pet_care"}
-                onCheckedChange={() => handleCategoryParams("per_care")}
-              />
-              <span>Pet Care</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "gift_hampers"}
-                onCheckedChange={() => handleCategoryParams("gift_hampers")}
-              />
-              <span>Gift Hampers</span>
-            </li>
-            <li className="flex flex-row items-center gap-3">
-              <Checkbox
-                checked={category == "kitchen_wares"}
-                onCheckedChange={() => handleCategoryParams("kitchen_wares")}
-              />
-              <span>Kitchen wares</span>
-            </li>
+            {
+              categoryArray.map((itemCategory, index)=>(
+              <li key={index} className="flex flex-row items-center gap-3">
+                <Checkbox
+                  checked={category == itemCategory.name}
+                  onCheckedChange={() => handleCategoryParams(itemCategory.name)}
+                />
+                <span>{itemCategory.name}</span>
+              </li>
+              ))
+            }
           </ul>
         </div>
       </div>
-      <div className="relative flex-1 sm:pl-4 md:pl-6 sm:min-w-[640px] overflow-x-auto">
-        <div className="py-4 md:py-6 flex flex-row justify-between items-center">
+      <div className="pr-4 md:pr-8 lg:pr-10 xl:pr-14 relative flex-1 sm:pl-4 md:pl-6 sm:min-w-[640px] overflow-x-auto">
+        <div className="inner-y-padding flex flex-row justify-between items-center">
           <p className="text-black font-normal text-sm">
             showing {productsObj.pagination.page}-{productsObj.pagination.pages}{" "}
             of {productsObj.pagination.total} results
@@ -337,7 +166,7 @@ export default function InventoryList({
                     name={item.name}
                     price={item.price.selling}
                     rating={4}
-                    handleFunc={changeStep}
+                    // handleFunc={changeStep}
                     item={item}
                   />
                 ))
@@ -426,29 +255,5 @@ export default function InventoryList({
         </div>
       </div>
     </div>
-  ) : step == 2 ? (
-    <div className="main-padding">
-      <ProductDetails rating={4} product={selectedProduct} handleFunc={handleStep} />
-      {relatedProducts.length > 0 && (
-        <>
-          <p className="text-xl font-semibold mb-5">Related Products</p>
-          <div className="flex flex-row flex-wrap gap-6 mb-6 md:mb-8 lg:mb-10">
-            {relatedProducts.slice(0,2).map((item, index) => (
-              <Product2
-                key={index}
-                imgPath={item.image}
-                name={item.name}
-                price={item.price.selling}
-                rating={4}
-                handleFunc={changeStep}
-                item={item}
-              />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  ) : (
-    <></>
-  );
+  )
 }

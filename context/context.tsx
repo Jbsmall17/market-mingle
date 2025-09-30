@@ -15,9 +15,20 @@ export type productType = {
   variantItems: string[];
 };
 
+type productsObjType = {
+    items : productType[],
+    pagination: {
+        page: number,
+        pages: number,
+        total: number,
+    }
+}
+
 type contextType = {
     cartProduct: productType[]
-    setCartProduct: Dispatch<SetStateAction<productType[]>>
+    setCartProduct: Dispatch<SetStateAction<productType[]>>,
+    productsObj: productsObjType, 
+    setProductsObj: Dispatch<SetStateAction<productsObjType>>
 }
 
 const myContext = createContext< contextType | undefined>(undefined)
@@ -25,8 +36,16 @@ const myContext = createContext< contextType | undefined>(undefined)
 
 export default function ConxtextComp({children}:{children: ReactNode}){
     const [cartProduct, setCartProduct] = useState<productType[]>([])
+    const [productsObj, setProductsObj] = useState<productsObjType>({
+        items: [],
+        pagination: {
+          page: 1,
+          pages: 1,
+          total: 0,
+        },
+      });
     return (
-        <myContext.Provider value={{cartProduct,setCartProduct}}>
+        <myContext.Provider value={{cartProduct,setCartProduct, productsObj, setProductsObj}}>
             {children}
         </myContext.Provider>
     )
