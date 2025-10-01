@@ -22,11 +22,11 @@ const categoryEndpoint = `${baseUrl}/user/grocery-finance/product-categories`
   if (category) apiUrl.searchParams.set("category", category);
   apiUrl.searchParams.set("page", page);
 
-  const [productResponse, categoryResponse] = await Promise.all([
+  try{
+    const [productResponse, categoryResponse] = await Promise.all([
     fetch(apiUrl.toString(), {cache: "no-store"}),
     fetch(categoryEndpoint, {cache: "no-store"})
   ]) 
-  try{
     // const response = await fetch(apiUrl.toString(), {cache: "no-store"}) 
     if(!productResponse.ok){
       throw new Error("Failed to fetch products")
@@ -39,6 +39,7 @@ const categoryEndpoint = `${baseUrl}/user/grocery-finance/product-categories`
     const categoryData = await categoryResponse.json()
     const products = productData.products
     const category = categoryData.data
+    console.log(products)
     return (
       <InventoryList products={products} categoryArray={category} />
     )
