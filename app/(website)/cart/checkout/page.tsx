@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { useContextValue } from '@/context/context'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Weight } from 'lucide-react'
 import Link from 'next/link'
 import React, {useState } from 'react'
 import CartItem from '../component/cart-item'
@@ -11,6 +11,7 @@ import OrderSummary from '../component/order-summary'
 import {useForm, Controller, SubmitHandler} from "react-hook-form"
 import axios from 'axios'
 import Loader from '@/components/ui/loader'
+import { useRouter } from 'next/navigation'
 
 
 type IFormInput = {
@@ -27,6 +28,7 @@ type IFormInput = {
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 export default function Page() {
+    const router = useRouter()
     const {cartProduct, setCartProduct} = useContextValue()
     const {control, handleSubmit, formState: {errors}, watch} = useForm<IFormInput>({
         defaultValues: {
@@ -71,6 +73,7 @@ export default function Page() {
     }
 
     const initaiteGuestPurchase = () => {
+        const endpoint = `${baseUrl}/user/grocery-finance/initiate-guest-purchase`
         const cartArray = cartProduct.map((product) =>{
             return {
                 productId : product._id,
@@ -79,10 +82,10 @@ export default function Page() {
                 quantity: product.stock.quantity,
                 description: product.description,
                 // weight: product.
-
             }
         })
         const payload = {
+            client : "web",
             purchaser : {
                 fullName : fullName,
                 email: email,
@@ -91,8 +94,10 @@ export default function Page() {
                     street: street,
                     city: city,
                     state: state,
-                    country: country
+                    country: country,
+                    postalCode: "101241"
                 },
+                nationalId: "A123456789",
                 shipbubbleAddressCode: addressCode 
             },
             items: [
@@ -100,8 +105,19 @@ export default function Page() {
             ],
             paymentMethod: "card"
         }
+        console.log({...payload})
+        axios.post(endpoint,payload)
+        .then((res)=>{
+            console.log(res.data)
+            router.push(res.data.data.checkoutLink)
+        })
+        .catch((err)=>{
+            console.log(err.respnse ? err.response.message : "error initiating purchase")
+        })
+        .finally(()=>{
 
-        console.log(payload)
+        })
+        // console.log(payload)
     }
 
     const totalItems = cartProduct.reduce((numOfItem, item)=>{

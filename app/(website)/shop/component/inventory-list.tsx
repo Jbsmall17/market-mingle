@@ -96,8 +96,8 @@ export default function InventoryList({
   }, [products]);
 
   return (
-    <div className="relative flex flex-col sm:flex-row overflow-x-auto h-screen overflow-hidden">
-      <div className={`min-w-[200px] pt-4 pb-4 md:pt-6 lg:pt-8 border-r border-black absolute sm:static top-0 left-0 bg-white z-10 pl-4 sm:pl-0 md:pl-8 lg:pl-10 xl:pl-14 ${showFilter ? "block" : "hidden sm:block" } overflow-y-auto`}>
+    <div className="relative flex flex-col sm:flex-row overflow-x-auto">
+      <div className={`min-w-[225px] pt-4 pb-4 md:pt-6 lg:pt-8 border-r border-black absolute sm:static top-0 left-0 bg-white z-10 pl-4 sm:pl-0 md:pl-8 lg:pl-10 xl:pl-14 pr-2 ${showFilter ? "block" : "hidden sm:block" } overflow-y-auto`}>
         <X onClick={()=>setShowFilter(false)} className="block sm:hidden absolute top-2 right-2" />
         <p className="font-medium text-base sm:text-xl border-b border-black mr-2">
           Filter Options
@@ -119,7 +119,7 @@ export default function InventoryList({
           </ul>
         </div>
       </div>
-      <div className="pr-4 md:pr-8 lg:pr-10 xl:pr-14 relative flex-1 sm:pl-4 md:pl-6 sm:min-w-[640px] overflow-x-auto">
+      <div className="flex flex-col min-h-[1150px] pr-4 md:pr-8 lg:pr-10 xl:pr-14 relative flex-1 sm:pl-4 md:pl-6 sm:min-w-[640px] overflow-x-auto">
         <div className="inner-y-padding flex flex-row justify-between items-center">
           <p className="text-black font-normal text-sm">
             showing {productsObj.pagination.page}-{productsObj.pagination.pages}{" "}
@@ -132,7 +132,7 @@ export default function InventoryList({
             </p>
           </div>
         </div>
-        <div>
+        <div className="flex-1 flex flex-col">
           <p className="text-3xl font-bold mb-5 text-center">Shop</p>
           <p className="text-gray-400 text-2xl font-medium text-center">
             Home / Shop
@@ -147,7 +147,7 @@ export default function InventoryList({
             <ProductCategory image="/image7.svg" text="Margarine" />
           </div>
           <div
-            className={`${
+            className={`flex-1 ${
               productsObj.items.length > 0 ? "min-h-[500px]" : "h-auto"
             }`}
           >
