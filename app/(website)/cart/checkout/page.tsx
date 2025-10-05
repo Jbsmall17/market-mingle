@@ -344,7 +344,7 @@ export default function Page() {
                     </div>
                 </div>
                 <div className='flex justify-end'>
-                    <Button type='submit' variant={'secondary'} className='min-w-[150px]'>
+                    <Button type='submit' variant={'secondary'} className='min-w-[150px] mt-3'>
                         {
                             loading ?
                             <Loader size={4} />

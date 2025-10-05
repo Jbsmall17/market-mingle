@@ -1,6 +1,7 @@
 "use client"
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import Loader from '@/components/ui/loader';
 import { productType, useContextValue } from '@/context/context';
 import { ArrowLeft, Heart, Minus, Plus, Star } from 'lucide-react';
 import Image from 'next/image';
@@ -21,13 +22,17 @@ const ProductDetails = ({
     const {setCartProduct} = useContextValue()
     const ratingMap = [1, 2, 3, 4, 5];
     const [number, setNumber] = useState(1);
+    const[isAdding,setIsAdding] = useState(false)
     
     const addToCart = () => {
       const selectProduct : productType = {
         ...product,
          stock: { quantity: number },
       }
-
+      setIsAdding(true)
+      setTimeout(()=>{
+        setIsAdding(false)
+      },1000)
       setCartProduct((prev)=>{
         const findProduct = prev.find((product)=> product._id === selectProduct._id)
         if(!findProduct){
@@ -141,7 +146,13 @@ const ProductDetails = ({
               </div>
             </div>
             <div className="flex flex-row gap-4 items-center">
-              <Button onClick={addToCart} className="bg-[#319f43]">Add to Cart</Button>
+              <Button onClick={addToCart} className="bg-[#319f43] flex flex-jusitfy items-center min-w-[105px]">
+                {
+                  isAdding
+                  ? <Loader size={4} />
+                  : "Add to Cart"
+                }
+              </Button>
               <Button variant={"secondary"} asChild>
                 <Link href="/cart">
                   Buy Now

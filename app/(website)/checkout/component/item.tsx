@@ -20,7 +20,7 @@ const Item = ({image, name, price, unit_price}:{image: string, name: string, pri
               ₦{price.toLocaleString()}
             </p>
             <p className='text-end text-xs text-muted-foreground'>
-              (₦{unit_price.toLocaleString()}/piece)
+              (₦{unit_price.toLocaleString()}/unit)
             </p>
           </div>
         </div>

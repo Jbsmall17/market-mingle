@@ -50,7 +50,7 @@ const CartItem = ({ img, name, price, quantity, id }: cartItemType) => {
         <div className="space-y-1 font-medium">
             <p className="text-sm sm:text-base">{name}</p>
             <p className="text-base sm:text-xl text-primary">
-              ₦{price.toLocaleString()}/piece
+              ₦{price.toLocaleString()}/unit
             </p>
           </div>
         <div className="space-y-2">
