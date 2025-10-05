@@ -38,7 +38,7 @@ type item = {
 
 export default function Page() {
     const searchParams = useSearchParams()
-    const status = searchParams.get('status')
+    // const status = searchParams.get('status')
     const orderRef = searchParams.get('orderRef')
     const [isLoading, setIsLoading] = useState(false)
     const [checkoutObj, setCheckoutObj] = useState<checkoutObjType>({
