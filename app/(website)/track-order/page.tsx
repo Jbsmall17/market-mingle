@@ -1,7 +1,27 @@
+/*eslint-disable @typescript-eslint/no-explicit-any*/
 import React from 'react'
-import Item from '../order-complete/component/item'
+import Item from '../checkout/component/item'
 
-export default function page() {
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
+export default async function page({searchParams}: {searchParams : any}) {
+    const {shipmentOrderId} = await searchParams
+    // console.log(shipmentOrderId)
+    // const trackShipmentDetails = () => {
+    //     const endpoint = `${baseUrl}/user/grocery-finace/trackGuestShipment/${shipmentOrderId}`
+    // }
+    try{
+        const endpoint = `${baseUrl}/user/grocery-finace/trackGuestShipment/${shipmentOrderId}`
+
+        const response = await fetch(endpoint,{cache : 'no-cache'})
+        if(!response.ok){
+            throw new Error("Failed to fetch Track records")
+        }
+        const trackResponse  = await response.json() 
+        console.log(trackResponse)
+    }catch(err){
+        console.log(err)
+    }
   return (
     <div className='main-padding'>
         <div className='title-container-padding'>
@@ -52,11 +72,13 @@ export default function page() {
                         image="/almond-milk.svg"
                         name="Almond milk"
                         price={30000}
+                        unit_price={1000}
                     />
                     <Item
                         image="/almond-milk.svg"
                         name="Almond milk"
                         price={30000}
+                        unit_price={1000}
                     />
                 </div>
 

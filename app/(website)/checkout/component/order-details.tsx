@@ -4,11 +4,38 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import Item from "./item";
 
-export default function OrderDetails() {
+type shipment = {
+  cost : number,
+  estimatedDelivery: string,
+  estimatedDeliveryTime : string,
+  raw : {
+    discount: {
+      discounted: number
+    }
+  }
+}
+
+type item = {
+  productId : "",
+  name : "",
+  category : "",
+  sku: null | "",
+  unitPrice: number,
+  quantity: number,
+  subtotal: number
+}
+
+type OrderDetailsType = {
+  orderReference : string,
+  items: item[],
+  shipment: shipment
+}
+
+  export default function OrderDetails({order}: {order: OrderDetailsType}) {
   const router = useRouter()
 
   const handleNavigation = () =>{
-    router.push("/track-order")
+    router.push(`/track-order?shipmentOrderId=${order.orderReference}`)
   }
 
 
@@ -21,34 +48,30 @@ export default function OrderDetails() {
           <p>Subtotal</p>
         </div>
         <div className="space-y-2  lg:space-y-3 mb-5 md:mb-6 lg:mb-8 xl:mb-10">
-          <Item
-            image="/almond-milk.svg"
-            name="Almond milk"
-            price={30000}
-          />
-          <Item
-            image="/almond-milk.svg"
-            name="Almond milk"
-            price={30000}
-          />
-          <Item
-            image="/almond-milk.svg"
-            name="Almond milk"
-            price={30000}
-          />
+          {
+            order.items.map((item)=>(
+              <Item
+                key={item.productId}
+                image="/placeholder.svg"
+                name={item.name}
+                price={item.subtotal}
+                unit_price={item.unitPrice}
+              />
+            ))
+          }
         </div>
         <hr className="border-black" />
         <div className="py-3 md:py-5 lg:py-7 space-y-2">
           <div className="text-base md:text-xl flex justify-between items-center">
             <p className="font-medium">Delivery Fee</p>
             <p className="text-primary">
-              ₦{(10000).toLocaleString()}/piece
+              ₦{order.shipment.cost.toLocaleString()}
             </p>
           </div>
           <div className="text-base md:text-xl flex justify-between items-center">
-            <p className="font-medium">Coupon Discount</p>
+            <p className="font-medium">Discount</p>
             <p className="text-primary">
-              ₦{(25000).toLocaleString()}/piece
+              ₦{order.shipment.raw.discount.discounted.toLocaleString()}
             </p>
           </div>
         </div>
@@ -56,13 +79,13 @@ export default function OrderDetails() {
         <div className="pt-3 md:pt-5 lg:pt-7 pb-2 md:pb-4 lg:pb-6 text-base md:text-xl flex justify-between items-center">
           <p className="font-medium">Delivery Fee</p>
           <p className="text-primary">
-            ₦{(10000).toLocaleString()}/piece
+            ₦{order.shipment.cost.toLocaleString()}
           </p>
         </div>
         <div className="flex justify-center items-center">
           <Button 
             onClick={handleNavigation}
-            className="md:w-[50%] lg:w-[30%] text-base md:text-xl"
+            className="md:w-[50%] lg:w-[30%] text-base"
           >
             Track Your Order
           </Button>

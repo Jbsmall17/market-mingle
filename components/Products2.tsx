@@ -1,7 +1,12 @@
 import { productType, useContextValue } from "@/context/context";
-import { Heart, ShoppingCart } from "lucide-react";
+import { scrollToTop } from "@/lib/utils";
+import { Heart, ShoppingCart, Star, StarHalf } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { TooltipArrow } from "@radix-ui/react-tooltip";
+import { useState } from "react";
+import Loader from "./ui/loader";
 
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
@@ -27,15 +32,20 @@ const Product2 = ({
   }) => {
     const router = useRouter()
     const { setCartProduct } = useContextValue();
+    const [isLoading, setIsLoading] = useState(false)
     const ratingArr = [1, 2, 3, 4, 5];
-    console.log(ratingArr, rating)
     const handleClick = () => {
         // handleFunc(2,item)
         router.push(`/products/${item.name}`)
+        scrollToTop()
 
     }
 
     const addToCart = () => {
+      setIsLoading(true)
+      setInterval(()=>{
+        setIsLoading(false)
+      },1000)
       const product = {
         ...item,
         stock: { quantity: 1 }
@@ -73,8 +83,16 @@ const Product2 = ({
             />
         </div>
         <div className="px-2 py-1 h-auto space-y-1">
-          <p title={name.split("(")[0]} className="font-medium text-base sm:text-xl">{name.split("(")[0].length > 15 ? `${name.split("(")[0].substring(0,15)}...`: name.split("(")[0]}</p>
-          {/* <p className="flex gap-1 text-[#98905c]">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <p className="inline capitalize font-medium text-base sm:text-xl">{name.split("(")[0].length > 15 ? `${name.split("(")[0].substring(0,15)}...`: name.split("(")[0]}</p>
+            </TooltipTrigger>
+            <TooltipContent className="bg-foreground text-background">
+              {name}
+              <TooltipArrow className="text-background"></TooltipArrow>
+            </TooltipContent>
+          </Tooltip>
+          <p className="flex gap-1 text-[#98905c]">
             {ratingArr.map((fig, idx) => {
               if (fig <= rating) {
                 return <Star className="size-4 fill-current" key={idx} />;
@@ -84,7 +102,7 @@ const Product2 = ({
                 return <Star key={idx}  className="size-4"/>;
               }
             })}
-          </p> */}
+          </p>
           <p className="text-xl text-primary font-semibold">
             ₦{price.toLocaleString()}
             {weight && <span className="text-[#c4c4c4]">/{weight}kg</span>}
@@ -95,9 +113,13 @@ const Product2 = ({
             )}
           </p>
           <div className="cursor-pointer absolute bottom-0 right-0 bg-secondary size-8 flex justify-center items-center text-white rounded-br-lg">
-            <ShoppingCart 
-              onClick={addToCart} 
-            />
+            {
+              isLoading
+              ? <Loader size={4} />
+              : <ShoppingCart 
+                  onClick={addToCart} 
+                />
+            }
           </div>
         </div>
       </div>

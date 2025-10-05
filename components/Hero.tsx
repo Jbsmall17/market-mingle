@@ -27,11 +27,13 @@ export default function Hero() {
           count on us for trusted brands, exceptional service, and and unbeatable quality
           quality every time you stop
         </p>
-        <div className="mb-3 md:mb-5 lg:mb-7 flex gap-3 md:gap-5 lg:gap-7 items-center justify-center lg:justify-start">
-          <Button variant={"default"}>
-            Shop Now <ArrowRight />
+        <div className="mb-3 md:mb-5 lg:mb-7 flex gap-3 md:gap-5 items-center justify-center lg:justify-start">
+          <Button variant={"default"} asChild>
+            <Link href="/shop">
+              Shop Now <ArrowRight />
+            </Link>
           </Button>
-          <Link href="/shop">View All products</Link>
+          <Link href="/shop" className="hover:text-primary">View All products</Link>
         </div>
         <div className="flex gap-2 items-center justify-center lg:justify-start">
           <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">

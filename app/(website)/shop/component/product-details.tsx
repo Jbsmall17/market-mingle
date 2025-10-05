@@ -4,21 +4,22 @@ import { Button } from '@/components/ui/button';
 import { productType, useContextValue } from '@/context/context';
 import { ArrowLeft, Heart, Minus, Plus, Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 const ProductDetails = ({
-    // rating,
+    rating,
     product,
     // handleFunc
   }: {
-    // rating: number;
+    rating: number;
     product: productType;
     // handleFunc: () => void
   }) => {
     const router = useRouter()
     const {setCartProduct} = useContextValue()
-    // const ratingMap = [1, 2, 3, 4, 5];
+    const ratingMap = [1, 2, 3, 4, 5];
     const [number, setNumber] = useState(1);
     
     const addToCart = () => {
@@ -76,7 +77,7 @@ const ProductDetails = ({
                 {product.salesPrice.isActive ? "In Stock" : "Not In Stock"}
               </Badge>
             </div>
-            {/* <div className="flex flex-row gap-4 items-center mb-3">
+            <div className="flex flex-row gap-4 items-center mb-3">
               <div className="text-secondary flex flex-row gap-1">
                 {ratingMap.map((fig, idx) => {
                   if (fig <= rating) {
@@ -89,9 +90,9 @@ const ProductDetails = ({
               <p className="text-base font-medium">
                 {rating.toFixed(1)} (245 reviews)
               </p>
-            </div> */}
+            </div>
             <p className="text-base sm:text-xl font-semibold mb-4">
-              ₦{product.price.selling.toLocaleString()} per one
+              ₦{product.price.selling.toLocaleString()}/unit
             </p>
             <p className="text-base font-light mb-2">{product.description}</p>
             {
@@ -141,7 +142,11 @@ const ProductDetails = ({
             </div>
             <div className="flex flex-row gap-4 items-center">
               <Button onClick={addToCart} className="bg-[#319f43]">Add to Cart</Button>
-              <Button variant={"secondary"}>Buy Now</Button>
+              <Button variant={"secondary"} asChild>
+                <Link href="/cart">
+                  Buy Now
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
