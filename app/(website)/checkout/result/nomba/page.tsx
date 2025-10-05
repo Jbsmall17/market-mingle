@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
-import OrderDetails from './component/order-details'
+import OrderDetails from '../../component/order-details'
 
 export default function page() {
   return (

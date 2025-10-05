@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { useContextValue } from '@/context/context'
 import { ArrowLeft, Weight } from 'lucide-react'
 import Link from 'next/link'
-import React, {useState } from 'react'
+import React, {useRef, useState } from 'react'
 import CartItem from '../component/cart-item'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -12,6 +12,8 @@ import {useForm, Controller, SubmitHandler} from "react-hook-form"
 import axios from 'axios'
 import Loader from '@/components/ui/loader'
 import { useRouter } from 'next/navigation'
+import { Card } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 
 type IFormInput = {
@@ -24,12 +26,41 @@ type IFormInput = {
     country: string  
 }
 
+type courier = {
+    courier_id: string,
+    courier_name: string,
+    service_type: string,
+    waybill: false,
+    on_demand: true,
+    ratings: number,
+    connected_account: false,
+    rate_card_amount: 591,
+    delivery_eta: string,
+    delivery_eta_time: string,
+    vat: number,
+    total: number,
+    discount: {
+        percentage: number,
+        symbol: string,
+        discounted: number
+    },
+}
+
+type CourierCardType = {
+    courier : courier,
+    selected: boolean,
+    onSelect: () => void
+}
+
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 export default function Page() {
     const router = useRouter()
     const {cartProduct, setCartProduct} = useContextValue()
+    const divRef = useRef<HTMLDivElement>(null)
+    const courierRef = useRef<HTMLDivElement>(null)
+    const checkoutRef = useRef<HTMLDivElement>(null)
     const {control, handleSubmit, formState: {errors}, watch} = useForm<IFormInput>({
         defaultValues: {
             fullName: "",
@@ -43,6 +74,16 @@ export default function Page() {
     })
     const [loading, setLoading] = useState(false)
     const [addressCode, setAddressCode] = useState("")
+    const [couriers, setCouriers] = useState<courier[]>([])
+    const [selectedCourier, setSelectedCourier] = useState({
+        courier_id : "",
+        total: 0,
+        discount: {
+        discounted: 0
+    }
+    })
+    const [isCheckout, setIsCheckout] = useState(false)
+
     const clearCart = () => {
         setCartProduct([])
     }
@@ -54,14 +95,32 @@ export default function Page() {
     const state = watch("state")
     const country = watch("country")
 
+    const cartArray = cartProduct.map((product) =>{
+            return {
+                productId : product._id,
+                name : product.name,
+                price: product.price.selling,
+                quantity: product.stock.quantity,
+                description: product.description,
+            }
+        })
+
     const onSubmit: SubmitHandler<IFormInput> = (data) =>{
         setLoading(true)
         const endpoint = `${baseUrl}/user/grocery-finance/generate-address-code`
-        const payload = {...data}
+        const payload = {
+            ...data,
+            items: [...cartArray]
+        }
         axios.post(endpoint, payload)
         .then((res)=>{
-            console.log(res.data.shipbubbleAddressCode)
             setAddressCode(res.data.shipbubbleAddressCode)
+            const couriers : courier[] = res.data.shipping.raw.couriers
+            setCouriers([...couriers])
+            courierRef.current?.scrollIntoView({
+                behavior: "smooth"
+            })
+
         })
         .catch((err)=>{
             console.log(err.response ? err.respnse.message : "error generating code")
@@ -73,19 +132,21 @@ export default function Page() {
     }
 
     const initaiteGuestPurchase = () => {
-        const endpoint = `${baseUrl}/user/grocery-finance/initiate-guest-purchase`
-        const cartArray = cartProduct.map((product) =>{
-            return {
-                productId : product._id,
-                name : product.name,
-                price: product.price.selling,
-                quantity: product.stock.quantity,
-                description: product.description,
-                // weight: product.
+        const endpoint = `${baseUrl}/user/grocery-finance/initiate-guest-purchase/paystack`
+        if(cartProduct.length === 0) return
+        if(addressCode == ""){
+            if(divRef.current){
+                divRef.current.scrollIntoView({
+                    behavior: 'smooth'
+                })
             }
-        })
+            return 
+        } 
         const payload = {
             client : "web",
+            chosenCourier: {
+                ...selectedCourier
+            },
             purchaser : {
                 fullName : fullName,
                 email: email,
@@ -94,10 +155,8 @@ export default function Page() {
                     street: street,
                     city: city,
                     state: state,
-                    country: country,
-                    postalCode: "101241"
+                    country: country
                 },
-                nationalId: "A123456789",
                 shipbubbleAddressCode: addressCode 
             },
             items: [
@@ -105,19 +164,17 @@ export default function Page() {
             ],
             paymentMethod: "card"
         }
-        console.log({...payload})
+        setIsCheckout(true)
         axios.post(endpoint,payload)
         .then((res)=>{
-            console.log(res.data)
             router.push(res.data.data.checkoutLink)
         })
         .catch((err)=>{
             console.log(err.respnse ? err.response.message : "error initiating purchase")
         })
         .finally(()=>{
-
+            setIsCheckout(false)
         })
-        // console.log(payload)
     }
 
     const totalItems = cartProduct.reduce((numOfItem, item)=>{
@@ -128,16 +185,39 @@ export default function Page() {
       return total + (item.stock.quantity * item.price.selling)
     },0)
 
-//     useEffect(() => {
-//     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-//       e.preventDefault();
-//       e.returnValue = ""; // Show default browser message
-//     };
-//     window.addEventListener("beforeunload", handleBeforeUnload);
-//     return () => {
-//       window.removeEventListener("beforeunload", handleBeforeUnload);
-//     };
-//   }, [])
+    const handleSelectCourier = (courier : courier) => {
+        setSelectedCourier(courier)
+        checkoutRef.current?.scrollIntoView({
+            behavior: "smooth"
+        })
+    }
+
+    const CourierCard = ({courier, selected, onSelect}: CourierCardType) => {
+       return (
+        <Card
+            onClick={onSelect}
+            className={cn(
+                "flex items-center justify-between gap-3 p-3 mb-2 cursor-pointer border transition-all",
+                selected ? "border-primary ring-2 ring-primary bg-primary/5" : "hover:border-primary/60"
+        )}>
+            <div className="flex flex-col gap-1 flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                    <span className="font-semibold text-base truncate">{courier.courier_name}</span>
+                    <span className="text-xs bg-muted px-2 py-0.5 rounded-full">{courier.service_type}</span>
+                </div>
+                <span className="text-xs text-gray-500 truncate">ETA: {courier.delivery_eta_time} ({courier.delivery_eta})</span>
+                <span className="text-xs text-gray-500">Ratings: {courier.ratings} ★</span>
+            </div>
+            <div className="flex flex-col items-end min-w-[100px]">
+                <span className="font-bold text-primary text-lg">₦{courier.total.toLocaleString()}</span>
+                {courier.discount.discounted > 0 && (
+                    <span className="text-xs text-green-600">-{courier.discount.symbol}{courier.discount.percentage}%</span>
+                )}
+            </div>
+            {selected && <span className="ml-4 text-primary font-medium">Selected</span>}
+        </Card>
+       ) 
+    } 
 
   return (
     <div className='main-padding'>
@@ -181,8 +261,8 @@ export default function Page() {
                     Clear Shopping Cart
                 </span>
             </div>
-            <div className='space-y-3 md:space-y-5'>
-                <p className='text-xl md:text-2xl font-medium'>Delivery Address</p>
+            <div ref={divRef} className='space-y-3 md:space-y-5'>
+                <p className='text-xl md:text-2xl font-medium'>Delivery Information </p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5'>
                     <div className='space-y-1.5'>
@@ -274,14 +354,44 @@ export default function Page() {
                 </div>
                 </form>
             </div>
+            <div ref={courierRef} className='space-y-3 md:space-y-5'>
+            {
+                couriers.length > 0
+                &&
+                <>
+                <p className='text-xl md:text-2xl font-medium'>Couriers</p>
+                <div>
+                    {
+                        couriers.map((courier)=>(
+                            <CourierCard
+                                key={courier.courier_id}
+                                courier={courier}
+                                selected={selectedCourier?.courier_id === courier.courier_id}
+                                onSelect={() => handleSelectCourier(courier)}
+                            />
+                        ))
+                    }
+            </div>
+            </>
+            }
+            </div>
+            <div ref={checkoutRef}>
             <OrderSummary
                 totalItems={totalItems}
                 subtotal={subtotal}
+                deliveryFee={selectedCourier.total}
+                discount={selectedCourier.discount.discounted}
             >
-                <Button onClick={initaiteGuestPurchase} variant={"default"} className="w-[200px]">
-                    Pay Now
+                <Button onClick={initaiteGuestPurchase} variant={"default"} className="w-[200px] flex justify-center items-center">
+                    {
+                        isCheckout
+                        ?
+                        <Loader size={4} />
+                        : "Pay Now"
+                    }
                 </Button>
             </OrderSummary>
+            </div>
         </div>
     </div>
   )
