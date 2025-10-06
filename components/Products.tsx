@@ -2,17 +2,6 @@ import { Heart, ShoppingCart} from "lucide-react";
 import Image from "next/image";
 
 
-type productType = {
-  _id: string;
-  barcode: string;
-  category: string;
-  description: string;
-  name: string;
-  price: { selling: number; cost: number };
-  stock: { quantity: number };
-  type: string;
-};
-
 const Product = ({
     imgPath,
     name,
