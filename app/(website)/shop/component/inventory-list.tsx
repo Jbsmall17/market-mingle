@@ -5,10 +5,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, Filter, X} from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Category, getPagination } from "@/lib/utils";
+import {getPagination } from "@/lib/utils";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { productType, useContextValue } from "@/context/context";
-import ProductDetails from "./product-details";
 
 type productObjType = {
   items: productType[];
@@ -154,7 +153,7 @@ export default function InventoryList({
             <div
               className={`my-6 md:my-8 lg:my-10 place-items-center ${
                 productsObj.items.length > 0
-                  ? "grid grid-cols-[repeat(auto-fit,minmax(165px,1fr))] grid-4"
+                  ? "grid grid-cols-[repeat(auto-fit,minmax(165px,1fr))] sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
                   : "flex justify-center items-center min-h-[400px]"
               }  gap-4 md:gap-6 lg:gap-8`}
             >

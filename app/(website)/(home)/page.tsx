@@ -1,17 +1,15 @@
-"use client"
 import Hero from "@/components/Hero";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Star,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Star } from "lucide-react";
 import Image from "next/image";
 import Product from "@/components/Products";
+import CarouselComp from "./component/carousel-comp";
+import { productType } from "@/context/context";
+import ProductList from "./component/product-list";
 
-export default function Home() {
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
-
+export default async function Home() {
   const Category = ({ imgPath, name }: { imgPath: string; name: string }) => {
     return (
       <div className="flex flex-col items-center py-4 gap-4 px-4 bg-white rounded-tl-full rounded-tr-full">
@@ -29,6 +27,22 @@ export default function Home() {
       </div>
     );
   };
+    
+  const page = Math.ceil(Math.random() * 10)
+  const endpoint = `${baseUrl}/user/grocery-finance/groceries?page=${page}`
+  let productDataArray: productType[] = [];
+
+  try {
+    const response = await fetch(endpoint, { cache: "no-store" });
+    if (!response.ok) throw new Error("Failed to fetch products");
+    const responseData = await response.json();
+    productDataArray = responseData.products.items || [];
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    productDataArray = []; 
+  }
+  
+  
 
   return (
     <main className="overflow-x-hidden">
@@ -44,121 +58,13 @@ export default function Home() {
           <Category imgPath="/household.svg" name="Households" />
           <Category imgPath="/water-drinks.svg" name="Water & Drinks" />
         </div>
-        <div className="mt-8 md:mt-10 lg:mt-14 bg-white main-padding py-4 md:py-6 lg:py-8">
-          <div className="pb-4 flex flex-row overflow-x-hidden gap-4 lg:gap-6">
-            <div className="shrink-0 w-full md:w-[500px] lg:w-[700px] p-6 md:p-8 lg:10 xl:p-14 flex flex-row justify-between items-center bg-gradient-to-l front-[#62a643] via-[#62A643] to-[#85bf6b] rounded-lg shadow-lg">
-              <div className="space-y-3 md:space-y-4">
-                <p className="text-white text-xs md:text-base">
-                  Get 30% Discount on your first
-                  <br /> Order on this platform
-                </p>
-                <Button variant={"secondary"} className="md:w-[150px]">
-                  Shop Now
-                </Button>
-              </div>
-              <div>
-                <Image
-                  src="/cart-image.svg"
-                  alt="cart image"
-                  width={150}
-                  height={150}
-                />
-              </div>
-            </div>
-            <div className="shrink-0 w-full md:w-[500px] lg:w-[700px] p-6 md:p-8 lg:10 xl:p-14 flex flex-row justify-between items-center bg-gradient-to-l front-[#62a643] via-[#62A643] to-[#85bf6b] rounded-lg shadow-lg">
-              <div className="space-y-3 md:space-y-4">
-                <p className="text-white text-xs md:text-base">
-                  Get 30% Discoumt on your first
-                  <br /> Order on this platform
-                </p>
-                <Button variant={"secondary"} className="md:w-[150px]">
-                  Shop Now
-                </Button>
-              </div>
-              <div>
-                <Image
-                  src="/cart-image.svg"
-                  alt="cart image"
-                  width={150}
-                  height={150}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-row justify-center items-center gap-2">
-            <div className="size-4 rounded-full bg-secondary"></div>
-            <div className="size-4 rounded-full bg-[#c4c4c4]"></div>
-            <div className="size-4 rounded-full bg-[#c4c4c4]"></div>
-          </div>
-        </div>
+        <CarouselComp />
       </section>
-      <section className="main-padding py-6 md:py-8 lg:py-10 xl:py-12 bg-[#62a643]">
-        <p className="text-base sm:text-xl text-center mb-2">Product</p>
-        <p className="mb-3 md:5 text-xl sm:text-2xl font-semibold text-center">
-          Featured <span className="text-secondary">Products</span>
-        </p>
-        <div className="place-items-center grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-          <Product
-            imgPath="/cooking-oil.svg"
-            name="Cooking oil"
-            rating={4}
-            price={10000}
-            weight="5"
-            type="first"
-          />
-          <Product
-            imgPath="/candrink.svg"
-            name="Can coke"
-            rating={4}
-            price={1000}
-            type="first"
-          />
-          <Product
-            imgPath="/candrink.svg"
-            name="Can coke"
-            rating={4}
-            price={1000}
-            type="first"
-          />
-          <Product
-            imgPath="/candrink.svg"
-            name="Can coke"
-            rating={4}
-            price={1000}
-            type="first"
-          />
-          <Product
-            imgPath="/candrink.svg"
-            name="Can coke"
-            rating={4}
-            price={1000}
-            type="first"
-          />
-          <Product
-            imgPath="/candrink.svg"
-            name="Can coke"
-            rating={4}
-            price={1000}
-            type="first"
-          />
-          <Product
-            imgPath="/candrink.svg"
-            name="Can coke"
-            rating={4}
-            price={1000}
-            type="first"
-          />
-          <Product
-            imgPath="/candrink.svg"
-            name="Can coke"
-            rating={4}
-            price={1000}
-            type="first"
-          />
-        </div>
-      </section>
+      <ProductList products={productDataArray} />
       <section className="main-padding py-6 md:py-8 lg:py-10 xl:py-12 bg-white">
-        <p className="text-base sm:text-xl text-center mb-2">Today&apos;s Deals</p>
+        <p className="text-base sm:text-xl text-center mb-2">
+          Today&apos;s Deals
+        </p>
         <p className="mb-3 md:5 text-xl sm:text-2xl font-semibold text-center">
           Deals of the day
         </p>
@@ -280,7 +186,9 @@ export default function Home() {
               </div>
               <span className="text-lg font-semibold">5.0</span>
             </div>
-            <p className="mt-2 text-center text-xl font-semibold">Grace Wilson</p>
+            <p className="mt-2 text-center text-xl font-semibold">
+              Grace Wilson
+            </p>
           </div>
           <div className="flex justify-center items-center absolute top-[50%] translate-y-[50%] right-0 size-8 rounded-full bg-[#62a643]">
             <ArrowRight className="size-5 text-white" />

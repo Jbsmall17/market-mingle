@@ -9,7 +9,6 @@ import { useState } from "react";
 import Loader from "./ui/loader";
 
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 const Product2 = ({
     imgPath,
