@@ -36,7 +36,9 @@ const Product2 = ({
     const handleClick = () => {
         // handleFunc(2,item)
         router.push(`/products/${item.name}`)
-        scrollToTop()
+        setTimeout(()=>{
+          scrollToTop()
+        },1000)
 
     }
 

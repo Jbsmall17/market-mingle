@@ -78,8 +78,7 @@ export default async function Home() {
             type="second"
           />
           <Product
-            imgPath="/co
-            oking-oil.svg"
+            imgPath="/cooking-oil.svg"
             name="Cooking oil"
             rating={4}
             price={10000}
