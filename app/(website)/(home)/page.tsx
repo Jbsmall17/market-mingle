@@ -1,11 +1,12 @@
 import Hero from "@/components/Hero";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Star } from "lucide-react";
+import { Button } from "@/components/ui/button"
 import Image from "next/image";
-import Product from "@/components/Products";
+// import Product from "@/components/Products";
 import CarouselComp from "./component/carousel-comp";
 import { productType } from "@/context/context";
 import ProductList from "./component/product-list";
+import Link from "next/link";
+import Testimonials from "./component/testimonials";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -50,9 +51,9 @@ export default async function Home() {
       <section className="pt-6 md:pt-8 lg:pt-10 xl:pt-12 bg-[#f5f5f5]">
         <p className="text-base sm:text-xl text-center mb-2">Categories</p>
         <p className="mb-3 md:5 text-xl sm:text-2xl font-semibold text-center">
-          Festured <span className="text-secondary">Categories</span>
+          Featured <span className="text-secondary">Categories</span>
         </p>
-        <div className="place-items-center main-padding grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="place-items-center main-padding grid grid-cols-[repeat(auto-fit,minmax(165px,1fr))] sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           <Category imgPath="/diary-baking.svg" name="Diary & baking" />
           <Category imgPath="/bakery.svg" name="Bakery" />
           <Category imgPath="/household.svg" name="Households" />
@@ -61,7 +62,7 @@ export default async function Home() {
         <CarouselComp />
       </section>
       <ProductList products={productDataArray} />
-      <section className="main-padding py-6 md:py-8 lg:py-10 xl:py-12 bg-white">
+      {/* <section className="main-padding py-6 md:py-8 lg:py-10 xl:py-12 bg-white">
         <p className="text-base sm:text-xl text-center mb-2">
           Today&apos;s Deals
         </p>
@@ -102,7 +103,7 @@ export default async function Home() {
             type="second"
           />
         </div>
-      </section>
+      </section> */}
       <section className="flex justify-center items-center main-padding py-6 md:py-8 lg:py-10 xl:py-12 bg-[#f5f5f5]">
         <div className="shadow-sm relative p-6 md:p-8 rounded-lg w-full md:w-[500px] lg:w-[700px] bg-gradient-to-l front-[#62a643] via-[#62A643] to-[#85bf6b]">
           <p className="relative z-10 text-secondary text-base mb-4">
@@ -112,7 +113,11 @@ export default async function Home() {
             Unbeatable Offers: Your <br />
             <span className="text-secondary">weekly grocery special</span>
           </p>
-          <Button variant={"secondary"}>Shop Now</Button>
+          <Button variant={"secondary"} asChild>
+            <Link href="/shop">
+              Shop Now
+            </Link>
+          </Button>
           <Image
             src="/offer-img.svg"
             alt="offers image"
@@ -165,34 +170,15 @@ export default async function Home() {
             height={100}
           />
         </div>
-        <div className="relative flex justify-center items-center">
-          <div className="flex justify-center items-center absolute top-[50%] translate-y-[50%] left-0 size-8 rounded-full bg-[#808080]">
+        {/* <div className="relative flex justify-center items-center"> */}
+          {/* <div className="flex justify-center items-center absolute top-[50%] translate-y-[50%] left-0 size-8 rounded-full bg-[#808080]">
             <ArrowLeft className="size-5 text-white" />
-          </div>
-          <div className="w-[90%] max-w-lg">
-            <p className="mb-4 md:mb-6 w-full text-center text-xl lg:text-2xl font-medium text-[#808080]">
-              I&apos;ve tried several grocery delivery services, and this one is
-              by far the best. The website is user-friendly, the selection is
-              vast, and the customer service is outstanding. Highly recommend!
-            </p>
-            <div className="flex flex-row gap-4 items-center justify-center">
-              <div className="flex flex-row gap-2 items-center">
-                <Star className="size-6 fill-current text-[#62a643]" />
-                <Star className="size-6 fill-current text-[#62a643]" />
-                <Star className="size-6 fill-current text-[#62a643]" />
-                <Star className="size-6 fill-current text-[#62a643]" />
-                <Star className="size-6 fill-current text-[#62a643]" />
-              </div>
-              <span className="text-lg font-semibold">5.0</span>
-            </div>
-            <p className="mt-2 text-center text-xl font-semibold">
-              Grace Wilson
-            </p>
-          </div>
-          <div className="flex justify-center items-center absolute top-[50%] translate-y-[50%] right-0 size-8 rounded-full bg-[#62a643]">
+          </div> */}
+          <Testimonials />
+          {/* <div className="flex justify-center items-center absolute top-[50%] translate-y-[50%] right-0 size-8 rounded-full bg-[#62a643]">
             <ArrowRight className="size-5 text-white" />
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </section>
     </main>
   );
