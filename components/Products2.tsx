@@ -1,5 +1,5 @@
 import { productType, useContextValue } from "@/context/context";
-// import { scrollToTop } from "@/lib/utils";
+import { scrollToTop } from "@/lib/utils";
 import { Heart, ShoppingCart, Star, StarHalf } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -36,7 +36,9 @@ const Product2 = ({
     const handleClick = () => {
         // handleFunc(2,item)
         router.push(`/products/${item.name}`)
-        // scrollToTop()
+        setTimeout(()=>{
+          scrollToTop()
+        },1000)
 
     }
 
