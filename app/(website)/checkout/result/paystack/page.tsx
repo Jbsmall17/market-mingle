@@ -62,6 +62,7 @@ export default function Page() {
         const endpoint = `${baseUrl}/user/grocery-finance/orders/${orderRef}`
         axios.get(endpoint)
         .then((res)=>{
+            console.log(res.data.data)
             setCheckoutObj(res.data.data)
         })
         .catch((err)=>{

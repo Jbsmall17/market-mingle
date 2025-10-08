@@ -49,9 +49,9 @@ type OrderDetailsType = {
         </div>
         <div className="space-y-2  lg:space-y-3 mb-5 md:mb-6 lg:mb-8 xl:mb-10">
           {
-            order.items.map((item)=>(
+            order.items.map((item, idx)=>(
               <Item
-                key={item.productId}
+                key={idx}
                 image="/placeholder.svg"
                 name={item.name}
                 price={item.subtotal}
@@ -60,8 +60,8 @@ type OrderDetailsType = {
             ))
           }
         </div>
-        <hr className="border-black" />
-        <div className="py-3 md:py-5 lg:py-7 space-y-2">
+        {/* <hr className="border-black" /> */}
+        {/* <div className="py-3 md:py-5 lg:py-7 space-y-2">
           <div className="text-base md:text-xl flex justify-between items-center">
             <p className="font-medium">Delivery Fee</p>
             <p className="text-primary">
@@ -74,14 +74,14 @@ type OrderDetailsType = {
               ₦{order.shipment.raw.discount.discounted.toLocaleString()}
             </p>
           </div>
-        </div>
-        <hr className="border-black" />
-        <div className="pt-3 md:pt-5 lg:pt-7 pb-2 md:pb-4 lg:pb-6 text-base md:text-xl flex justify-between items-center">
+        </div> */}
+        {/* <hr className="border-black" /> */}
+        {/* <div className="pt-3 md:pt-5 lg:pt-7 pb-2 md:pb-4 lg:pb-6 text-base md:text-xl flex justify-between items-center">
           <p className="font-medium">Delivery Fee</p>
           <p className="text-primary">
             ₦{order.shipment.cost.toLocaleString()}
           </p>
-        </div>
+        </div> */}
         <div className="flex justify-center items-center">
           <Button 
             onClick={handleNavigation}
