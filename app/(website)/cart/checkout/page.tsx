@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { useContextValue } from '@/context/context'
-import { ArrowLeft, Weight } from 'lucide-react'
+import { ArrowLeft} from 'lucide-react'
 import Link from 'next/link'
 import React, {useRef, useState } from 'react'
 import CartItem from '../component/cart-item'
@@ -61,7 +61,7 @@ export default function Page() {
     const divRef = useRef<HTMLDivElement>(null)
     const courierRef = useRef<HTMLDivElement>(null)
     const checkoutRef = useRef<HTMLDivElement>(null)
-    const {control, handleSubmit, formState: {errors}, watch} = useForm<IFormInput>({
+    const {control, handleSubmit, watch} = useForm<IFormInput>({
         defaultValues: {
             fullName: "",
             email: "",

@@ -12,16 +12,6 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 
 
-type item = {
-    productId : "",
-    name : "",
-    category : "",
-    sku: null | "",
-    unitPrice: number,
-    quantity: number,
-    subtotal: number
-}
-
 export default function Page() {
     const searchParams = useSearchParams()
     // const status = searchParams.get('status')

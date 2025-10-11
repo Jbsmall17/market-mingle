@@ -1,8 +1,7 @@
-/*eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Product2 from "@/components/Products2";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, ArrowRight, Filter, X} from "lucide-react";
+import { ArrowLeft, ArrowRight, X} from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import {getPagination } from "@/lib/utils";
