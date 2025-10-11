@@ -34,7 +34,7 @@ export default async function Home() {
   let productDataArray: productType[] = [];
 
   try {
-    const response = await fetch(endpoint, { cache: "no-store" });
+    const response = await fetch(endpoint, {next: { revalidate: 60 }});
     if (!response.ok) throw new Error("Failed to fetch products");
     const responseData = await response.json();
     productDataArray = responseData.products.items || [];
