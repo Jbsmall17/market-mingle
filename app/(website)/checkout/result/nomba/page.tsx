@@ -106,8 +106,8 @@ export default function Page() {
             <div className='py-2 md:py-0 flex-[2] space-y-1.5 px-2 md:px-3 lg:px-4'>
                 <p className='text-sm md:text-base text-[#4d310d]'>Estimated date of Delivery</p>
                 <div className='flex justify-between items-start'>
-                    <p className='text-base md:text-xl font-semibold'>{new Date(checkoutObj.shipment.estimatedDeliveryTime).toLocaleDateString()}</p>
-                    <Button>Download Invoice</Button>
+                    {/* <p className='text-base md:text-xl font-semibold'>{new Date(checkoutObj.shipment.estimatedDeliveryTime).toLocaleDateString()}</p> */}
+                    {/* <Button>Download Invoice</Button> */}
                 </div>
             </div>
         </div>
