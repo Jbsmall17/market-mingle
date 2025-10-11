@@ -1,4 +1,3 @@
-"use client"
 import React, { ReactNode, useState } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
