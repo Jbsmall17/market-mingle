@@ -66,7 +66,7 @@ const Product2 = ({
 
     return (
       <div
-        className={`w-full min-h-[220px] relative rounded-lg bg-white border border-[#62a643]`}
+        className={`w-full min-h-[220px] relative rounded-lg bg-white border border-[#62a643] shadow-md hover:shadow-none transition-all dutation-300`}
       >
         <div
           onClick={handleClick}

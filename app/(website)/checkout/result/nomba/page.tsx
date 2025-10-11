@@ -6,35 +6,11 @@ import OrderDetails from '../../component/order-details'
 import { useSearchParams } from 'next/navigation'
 import axios from 'axios'
 import Loader from '@/components/ui/loader2'
+import { checkoutObjType } from '../paystack/page'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
-type checkoutObjType = {
-    orderReference : string,
-    transactionId : string,
-    status : string,
-    items : item[],
-    shipment: {
-        cost : number,
-        estimatedDelivery: string,
-        estimatedDeliveryTime : string,
-        raw : {
-            discount: {
-            discounted: number
-            }
-        }
-    }
-}
 
-type item = {
-    productId : "",
-    name : "",
-    category : "",
-    sku: null | "",
-    unitPrice: number,
-    quantity: number,
-    subtotal: number
-}
 
 export default function Page() {
     const searchParams = useSearchParams()
@@ -54,7 +30,8 @@ export default function Page() {
             discount: {
                 discounted: 0
             }
-           }
+           },
+           trackingUrl: ""
         }
     })
     const getOrderDetails = () =>{
@@ -79,7 +56,8 @@ export default function Page() {
                     discount: {
                         discounted: 0
                     }
-                }
+                },
+                trackingUrl: ""
             }
         })
         })

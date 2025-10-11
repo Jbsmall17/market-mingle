@@ -39,7 +39,6 @@ const categoryEndpoint = `${baseUrl}/user/grocery-finance/product-categories`
     const categoryData = await categoryResponse.json()
     const products = productData.products
     const category = categoryData.data
-    console.log(products)
     return (
       <InventoryList products={products} categoryArray={category} />
     )

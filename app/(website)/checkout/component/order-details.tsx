@@ -3,39 +3,17 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Item from "./item";
+import { checkoutObjType } from "../result/paystack/page";
 
-type shipment = {
-  cost : number,
-  estimatedDelivery: string,
-  estimatedDeliveryTime : string,
-  raw : {
-    discount: {
-      discounted: number
-    }
-  }
-}
 
-type item = {
-  productId : "",
-  name : "",
-  category : "",
-  sku: null | "",
-  unitPrice: number,
-  quantity: number,
-  subtotal: number
-}
 
-type OrderDetailsType = {
-  orderReference : string,
-  items: item[],
-  shipment: shipment
-}
 
-  export default function OrderDetails({order}: {order: OrderDetailsType}) {
+
+  export default function OrderDetails({order}: {order: checkoutObjType}) {
   const router = useRouter()
 
   const handleNavigation = () =>{
-    router.push(`/track-order?shipmentOrderId=${order.orderReference}`)
+    router.push(`${order.shipment.trackingUrl}`)
   }
 
 
