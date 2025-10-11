@@ -1,12 +1,12 @@
 import Hero from "@/components/Hero";
 import { Button } from "@/components/ui/button"
 import Image from "next/image";
-// import Product from "@/components/Products";
 import CarouselComp from "./component/carousel-comp";
 import { productType } from "@/context/context";
 import ProductList from "./component/product-list";
 import Link from "next/link";
 import Testimonials from "./component/testimonials";
+import ScrollToHashHandler from "@/components/ScrollToHandler";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -47,6 +47,7 @@ export default async function Home() {
 
   return (
     <main className="overflow-x-hidden">
+      <ScrollToHashHandler />
       <Hero />
       <section className="pt-6 md:pt-8 lg:pt-10 xl:pt-12 bg-[#f5f5f5]">
         <p className="text-base sm:text-xl text-center mb-2">Categories</p>
@@ -127,7 +128,10 @@ export default async function Home() {
           />
         </div>
       </section>
-      <section className="main-padding py-6 md:py-8 lg:py-10 xl:py-12 bg-white">
+      <section 
+        id="testimonials"
+        tabIndex={-1}
+        className="main-padding py-6 md:py-8 lg:py-10 xl:py-12 bg-white">
         <p className="text-base sm:text-xl text-center mb-2">Testimonials</p>
         <p className="mb-3 md:5 text-xl sm:text-2xl font-semibold text-center">
           Testimonials from our
@@ -170,15 +174,7 @@ export default async function Home() {
             height={100}
           />
         </div>
-        {/* <div className="relative flex justify-center items-center"> */}
-          {/* <div className="flex justify-center items-center absolute top-[50%] translate-y-[50%] left-0 size-8 rounded-full bg-[#808080]">
-            <ArrowLeft className="size-5 text-white" />
-          </div> */}
           <Testimonials />
-          {/* <div className="flex justify-center items-center absolute top-[50%] translate-y-[50%] right-0 size-8 rounded-full bg-[#62a643]">
-            <ArrowRight className="size-5 text-white" />
-          </div> */}
-        {/* </div> */}
       </section>
     </main>
   );

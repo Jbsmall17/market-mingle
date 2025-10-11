@@ -12,7 +12,6 @@ export default function Header() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-
   const nameParam = searchParams.get("name") || "";
   const [inputValue, setInputValue] = React.useState(nameParam);
 
@@ -32,14 +31,31 @@ export default function Header() {
     router.push(`${pathname}?${params.toString()}`);
   };
 
+  const scrollOrNavigate = (id: string) => {
+    if(pathname === "/"){
+      const el = document.getElementById(id)
+      if(el){
+        el.scrollIntoView({behavior:"smooth", block : "start"});
+        
+        history.replaceState(null, "", `#${id}`);
+
+        (el as HTMLElement).focus?.()
+        return 
+      }
+      history.replaceState(null, "", `#${id}`);
+      return;
+    }
+    router.push(`/#${id}`)
+  }
+
+
   const NavItem = ({ name, path }: { name: string; path: string }) => {
     const location = usePathname()
-
     const isActive = (path: string) =>{
       return location == path && name !="Testimonials" ? "font-light" : "font-semibold" 
     }
     return (
-      <li className="w-[120px]">
+      <li  className="w-[120px]">
         <Link className={`w-full block text-center p-2 ${isActive(path)} hover:font-light transition-all duration-300 ease-linear`} href={path}>
           {name}
         </Link>
@@ -117,7 +133,14 @@ export default function Header() {
           <NavItem name="Home" path="/" />
           <NavItem name="Shop" path="/shop" />
           <NavItem name="About Us" path="/aboutus" />
-          <NavItem name="Testimonials" path="/" />
+          <li className="w-[120px]">
+            <button
+              onClick={() => scrollOrNavigate("testimonials")}
+              className="cursor-pointer w-full block text-center p-2 font-semibold hover:font-light transition-all duration-300 ease-linear"
+            >
+              Testimonials
+            </button>
+          </li>
         </ul>
       </nav>
     </header>
