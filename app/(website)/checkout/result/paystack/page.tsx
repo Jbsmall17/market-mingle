@@ -9,7 +9,7 @@ import Loader from '@/components/ui/loader2'
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
-type checkoutObjType = {
+export type checkoutObjType = {
     orderReference : string,
     transactionId : string,
     status : string,
@@ -22,7 +22,9 @@ type checkoutObjType = {
             discount: {
             discounted: number
             }
-        }
+        },
+        trackingUrl: string
+
     }
 }
 
@@ -54,7 +56,8 @@ export default function Page() {
             discount: {
                 discounted: 0
             }
-           }
+           },
+           trackingUrl : ""
         }
     })
     const getOrderDetails = () =>{
@@ -62,7 +65,7 @@ export default function Page() {
         const endpoint = `${baseUrl}/user/grocery-finance/orders/${orderRef}`
         axios.get(endpoint)
         .then((res)=>{
-            console.log(res.data.data)
+            // console.log(res.data.data)
             setCheckoutObj(res.data.data)
         })
         .catch((err)=>{
@@ -79,8 +82,9 @@ export default function Page() {
                     raw : {
                     discount: {
                         discounted: 0
-                    }
-                }
+                    }                   
+                },
+                trackingUrl: ""
             }
         })
         })
@@ -130,7 +134,7 @@ export default function Page() {
                 <p className='text-sm md:text-base text-[#4d310d]'>Estimated date of Delivery</p>
                 <div className='flex justify-between items-start'>
                     <p className='text-base md:text-xl font-semibold'>{new Date(checkoutObj.shipment.estimatedDeliveryTime).toLocaleDateString()}</p>
-                    <Button>Download Invoice</Button>
+                    {/* <Button>Download Invoice</Button> */}
                 </div>
             </div>
         </div>

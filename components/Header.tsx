@@ -36,7 +36,7 @@ export default function Header() {
     const location = usePathname()
 
     const isActive = (path: string) =>{
-      return location == path ? "font-light" : "font-semibold" 
+      return location == path && name !="Testimonials" ? "font-light" : "font-semibold" 
     }
     return (
       <li className="w-[120px]">
@@ -117,7 +117,7 @@ export default function Header() {
           <NavItem name="Home" path="/" />
           <NavItem name="Shop" path="/shop" />
           <NavItem name="About Us" path="/aboutus" />
-          <NavItem name="Testimonials" path="/testimonials" />
+          <NavItem name="Testimonials" path="/" />
         </ul>
       </nav>
     </header>
